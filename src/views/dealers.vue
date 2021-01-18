@@ -2,8 +2,8 @@
     <div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px" class="dealers_Form">
             <h2>施工店入口</h2>
-            <el-form-item label="门店编码" prop="code">
-                <el-input v-model="ruleForm.code"></el-input>
+            <el-form-item label="门店编码" prop="usercode">
+                <el-input v-model="ruleForm.usercode"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="ruleForm.password"></el-input>
@@ -19,13 +19,13 @@
         data() {
             return {
                 ruleForm:{
-                    code:"",
+                    usercode:"",
                     password:""
                 },
                 rules:{
-                    code:[
+                    usercode:[
                         {required:true, message:'请输入门店编码', trigger:'blur' },
-                        {min:10, max:10, message:'长度10个字符', trigger:'blur'}
+                        {min:3, max:10, message:'长度3~10个字符', trigger:'blur'}
                     ],
                     password: [
                         {required:true, message:'请输入密码', trigger:'blur' },
@@ -42,7 +42,7 @@
                             message: '门店登陆成功！',
                             type: 'success'
                         });
-                        this.$router.push('/main')
+                        this.$router.push({name:'main', params:{usercode:this.ruleForm.usercode}})
                     } else {
                         this.$message({
                             message: '门店编号或密码错误！',
