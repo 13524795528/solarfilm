@@ -3,10 +3,10 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px" class="dealers_Form">
             <h2>施工店入口</h2>
             <el-form-item label="门店编码" prop="code">
-                <el-input v-model="ruleForm.vin4"></el-input>
+                <el-input v-model="ruleForm.code"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input v-model="ruleForm.worksheet"></el-input>
+                <el-input v-model="ruleForm.password"></el-input>
             </el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')" >登陆</el-button>
         </el-form>

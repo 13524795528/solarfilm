@@ -38,7 +38,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$router.push('/certification')
+                        this.$router.push('/check')
                     } else {
                         this.$message({
                             message: 'VIN码或施工单号错误！',
