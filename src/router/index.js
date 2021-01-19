@@ -5,7 +5,7 @@ import login from '../views/login'
 import warranty from '../views/warranty'
 import certify from '../views/certify'
 import check from '../views/check'
-import dealers from '../views/dealers'
+import dealerlogin from '../views/dealerlogin'
 import main from '../views/main'
 import page404 from '../views/page404'
 
@@ -41,13 +41,13 @@ const routes = [
     props: true
   },
   {  //施工店入口
-    path:'/dealers',
-    name:'dealers',
-    component:dealers,
+    path:'/dealerlogin',
+    name:'dealerlogin',
+    component:dealerlogin,
     props: true
   },
   {  //首页
-    path:'/main/:usercode',
+    path:'/main',
     name:'main',
     component:main,
     props: true,
@@ -57,14 +57,22 @@ const routes = [
     ]
   },
   {  //重定向
-    path:'/gomain/:usercode',
-    redirect:'/main/:usercode'
+    path:'/gomain',
+    redirect:'/main'
   },
   {  //404页面
     path:'*',
     component:page404,
   }
 ]
+
+//修改原始push函数以解决重定向问题
+// const originalPush = Router.prototype.push
+// Router.prototype.push = function push(location, onResolve, onReject) {
+//   if (onResolve || onReject)
+//     return originalPush.call(this, location, onResolve, onReject)
+//   return originalPush.call(this, location).catch((err) => err)
+// }
 
 const router = new Router({
   mode: 'history',

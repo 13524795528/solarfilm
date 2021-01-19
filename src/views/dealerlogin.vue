@@ -1,14 +1,14 @@
 <template>
     <div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px" class="dealers_Form">
-            <h2>施工店入口</h2>
+            <h2>施工店登录</h2>
             <el-form-item label="门店编码" prop="usercode">
                 <el-input v-model="ruleForm.usercode"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="ruleForm.password"></el-input>
             </el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" >登陆</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')" >登录</el-button>
         </el-form>
     </div>
 </template>
@@ -38,11 +38,9 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$message({
-                            message: '门店登陆成功！',
-                            type: 'success'
-                        });
-                        this.$router.push({name:'main', params:{usercode:this.ruleForm.usercode}})
+                        sessionStorage.setItem('isLogin','true');
+                        this.$store.dispatch('asyncUpdateUser',{usercode:this.ruleForm.usercode});
+                        this.$router.push({name:'main', params:{usercode:this.ruleForm.usercode}});
                     } else {
                         this.$message({
                             message: '门店编号或密码错误！',

@@ -98,13 +98,21 @@
             </el-table-column>
         </el-table>
         <br><br>
-        <el-button @click="">关闭</el-button>
+        <el-button @click="turnback()">关闭</el-button>
     </div>
 </template>
 
 <script>
     export default {
         name: "warranty",
+        beforeRouteEnter:(to, from, next) => {
+            alert('准备进入页面');
+            next();
+        },
+        beforeRouteLeave:(to, from, next) => {
+            alert('准备离开页面');
+            next();
+        },
         data() {
             return {
                 dealerData: [{
@@ -115,6 +123,17 @@
                     dealerPhone: '091234567'
                 }]
             }
+        },
+        methods:{
+            turnback(){
+                this.$router.push('/login')
+            },
+            // getData(){
+            //     this.axios({
+            //         method:'get',
+            //         url:'https://...'
+            //     }).then().catch()
+            // }
         }
     }
 </script>

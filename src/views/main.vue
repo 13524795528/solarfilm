@@ -9,7 +9,7 @@
                         <el-dropdown-item>退出登陆</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
-                <span>{{$route.params.usercode}}</span>
+                <span>{{$store.getters.getUser.usercode}}</span>
             </el-header>
         </el-container>
         <el-container style="height:500px; border:1px solid #eee">
@@ -30,7 +30,7 @@
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="2-1"><router-link :to="{name:'PDI', params: {id:3}}">PDI ID=3</router-link></el-menu-item>
-                            <el-menu-item index="2-2"><router-link to="/gomain/Ray">回到首页</router-link></el-menu-item>
+                            <el-menu-item index="2-2"><router-link to="/gomain">回到首页</router-link></el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
