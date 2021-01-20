@@ -1,50 +1,85 @@
 <template>
     <div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="活动名称" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
+        <p>請補充您的車輛信息使質保信息生效，以便更好地為您服務！</p>
+        <el-table
+                :data="PDIData"
+                style="width: 100%">
+            <el-table-column
+                    prop="Vin4"
+                    label="VIN碼後4位"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="warrantyNum"
+                    label="保固卡號"
+                    width="180">
+            </el-table-column>
+        </el-table>
+        <br/>
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="check-ruleForm">
+            <el-form-item label="車主姓名" prop="owner">
+                <el-input v-model="ruleForm.owner"></el-input>
             </el-form-item>
-            <el-form-item label="活动区域" prop="region">
-                <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+            <el-form-item label="性別" prop="gender">
+                <el-select v-model="ruleForm.gender" placeholder="請選擇車主性別">
+                    <el-option label="男" value="male"></el-option>
+                    <el-option label="女" value="female"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="活动时间" required>
-                <el-col :span="11">
-                    <el-form-item prop="date1">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-                    </el-form-item>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                    <el-form-item prop="date2">
-                        <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-                    </el-form-item>
-                </el-col>
+            <el-form-item label="手機號碼" prop="phone">
+                <el-input v-model="ruleForm.phone"></el-input>
             </el-form-item>
-            <el-form-item label="即时配送" prop="delivery">
-                <el-switch v-model="ruleForm.delivery"></el-switch>
+            <el-form-item label="郵箱" prop="email">
+                <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
-            <el-form-item label="活动性质" prop="type">
-                <el-checkbox-group v-model="ruleForm.type">
-                    <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                    <el-checkbox label="地推活动" name="type"></el-checkbox>
-                    <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                    <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                </el-checkbox-group>
+            <el-form-item label="所在城市" prop="city">
+                <el-select v-model="ruleForm.city" placeholder="請選擇所在城市">
+                    <el-option label="台北市" value="Taipei"></el-option>
+                    <el-option label="新北市" value="Xinbei"></el-option>
+                    <el-option label="桃園市" value="Taoyuan"></el-option>
+                    <el-option label="台中市" value="Taizhong"></el-option>
+                    <el-option label="台南市" value="tainan"></el-option>
+                    <el-option label="高雄市" value="Gaoxiong"></el-option>
+                    <el-option label="基隆市" value="Jilong"></el-option>
+                    <el-option label="新竹市" value="Xinzhu"></el-option>
+                    <el-option label="嘉義市" value="Jiayi"></el-option>
+                    <el-option label="新竹縣" value="Xinzhuxian"></el-option>
+                    <el-option label="苗栗縣" value="Miaolixian"></el-option>
+                    <el-option label="彰化縣" value="Zhanghuaxian"></el-option>
+                    <el-option label="南投縣" value="Nantouxian"></el-option>
+                    <el-option label="雲林縣" value="Yunlinxian"></el-option>
+                    <el-option label="嘉義縣" value="Jiayixian"></el-option>
+                    <el-option label="屏東縣" value="Pingdongxian"></el-option>
+                    <el-option label="宜蘭縣" value="Yilanxian"></el-option>
+                    <el-option label="花蓮縣" value="Hualianxian"></el-option>
+                    <el-option label="臺東縣" value="Taidongxian"></el-option>
+                    <el-option label="澎湖縣" value="Penghuxian"></el-option>
+                    <el-option label="金門縣" value="Jinmenxian"></el-option>
+                    <el-option label="連江縣" value="Lianjiangxian"></el-option>
+                </el-select>
             </el-form-item>
-            <el-form-item label="特殊资源" prop="resource">
-                <el-radio-group v-model="ruleForm.resource">
-                    <el-radio label="线上品牌商赞助"></el-radio>
-                    <el-radio label="线下场地免费"></el-radio>
-                </el-radio-group>
+            <el-form-item label="地址" prop="address">
+                <el-input v-model="ruleForm.address"></el-input>
             </el-form-item>
-            <el-form-item label="活动形式" prop="desc">
-                <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+            <el-form-item label="車輛品牌" prop="brand">
+                <el-select v-model="ruleForm.brand" placeholder="請選擇車輛品牌">
+                    <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.value"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="車型" prop="vehicleType">
+                <el-select v-model="ruleForm.vehicleType" placeholder="請選擇車型">
+                    <el-option label="轎車" value="car"></el-option>
+                    <el-option label="休旅車" value="RV"></el-option>
+                    <el-option label="皮卡車" value="Pickup"></el-option>
+                    <el-option label="貨車" value="lorry"></el-option>
+                    <el-option label="其他" value="other"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="車牌號碼" prop="vehicleNum">
+                <el-input v-model="ruleForm.vehicleNum"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">認證</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
         </el-form>
@@ -56,38 +91,70 @@
         name: "check",
         data() {
             return {
+                PDIData:[{
+                    Vin4:'1234',
+                    warrantyNum:'123123123'
+                }],
+                vehicleBrandList:[
+                    {label:'Alfa_Romeo愛快_羅密歐',value:'AlfaRomeo'}, {label:'Aston_Martin奧斯頓_馬丁',value:'AstonMartin'}, {label:'Audi奧迪',value:'Audi'}, {label:'Acura歐歌',value:'Acura'}, {label:'Austin奧斯丁',value:'Austin'},
+                    {label:'Bentley賓利',value:'Bentley'}, {label:'BMW寶馬',value:'BMW'}, {label:'Buick別克',value:'Buick'}, {label:'Bugatti布卡堤',value:'Bugatti'},
+                    {label:'Cadillac凱迪拉克',value:'Cadillac'}, {label:'Citroen雪鐵龍',value:'Citroen'}, {label:'Chrysler克萊斯勒',value:'Chrysler'}, {label:'CMC中華汽車',value:'CMC'}, {label:'Chevrolet雪佛蘭',value:'Chevrolet'},
+                    {label:'Daihatsu大發',value:'Daihatsu'}, {label:'Dodge道奇',value:'Dodge'}, {label:'DFSK東風小康',value:'DFSK'},
+                    {label:'Ferrari法拉利',value:'Ferrari'}, {label:'Fiat飛雅特',value:'Fiat'}, {label:'Ford福特',value:'Ford'}, {label:'Formosa福爾摩沙',value:'Formosa'}, {label:'Foton福田',value:'Foton'},
+                    {label:'GMC通用',value:'GMC'},
+                    {label:'Honda本田',value:'Honda'}, {label:'Hyundai現代',value:'Hyundai'}, {label:'Hummer悍馬',value:'Hummer'},
+                    {label:'Ino日野',value:'Ino'}, {label:'Infiniti極致',value:'Infiniti'}, {label:'Isuzu五十鈴',value:'Isuzu'}, {label:'IVECO威凱',value:'IVECO'},
+                    {label:'Jaguar捷豹',value:'Jaguar'}, {label:'Jeep吉普',value:'Jeep'},
+                    {label:'Kia起亞',value:'Kia'},
+                    {label:'Lamborghini藍寶堅尼',value:'Lamborghini'}, {label:'Land_Rover荒原路華',value:'LandRover'}, {label:'Lexus凌志',value:'Lexus'}, {label:'Lotus蓮花',value:'Lotus'},{label:'Luxgen納智捷',value:'Luxgen'}, {label:'Lincoln林肯',value:'Lincoln'},
+                    {label:'Mercedes_Benz賓士',value:'MercedesBenz'}, {label:'Maserati瑪莎拉蒂',value:'Maserati'}, {label:'Mazda馬自達',value:'Mazda'}, {label:'Mini迷你',value:'Mini'}, {label:'Mitsubishi三菱',value:'Mitsubishi'}, {label:'McLaren麥拿侖',value:'McLaren'}, {label:'Morgan摩根',value:'Morgan'},
+                    {label:'Nissan日產',value:'Nissan'},
+                    {label:'Opel歐寶',value:'Opel'},
+                    {label:'Pagani帕加尼',value:'Pagani'}, {label:'Peugeo寶獅',value:'Peugeo'}, {label:'Porsche保時捷',value:'Porsche'},
+                    {label:'Rolls_Royce勞斯萊斯',value:'RollsRoyce'}, {label:'Renault雷諾',value:'Renault'},
+                    {label:'Saab紳寶',value:'Saab'}, {label:'Skoda斯柯達',value:'Skoda'}, {label:'Smart斯馬特',value:'Smart'}, {label:'Ssangyong雙龍',value:'Ssangyong'}, {label:'Subaru速霸陸',value:'Subaru'}, {label:'Suzuki鈴木',value:'Suzuki'},
+                    {label:'Toyota豐田',value:'Toyota'}, {label:'Tesla特斯拉',value:'Tesla'},
+                    {label:'Volkswagen福斯',value:'Volkswagen'}, {label:'Volvo富豪',value:'Volvo'}
+                ],
                 ruleForm: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                    owner: '',
+                    gender: '',
+                    phone:'',
+                    email:'',
+                    city:'',
+                    address:'',
+                    brand: '',
+                    vehicleType: '',
+                    vehicleNum: ''
                 },
                 rules: {
-                    name: [
-                        { required: true, message: '请输入活动名称', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                    owner: [
+                        { required: true, message: '請輸入車主姓名', trigger: 'blur' },
                     ],
-                    region: [
-                        { required: true, message: '请选择活动区域', trigger: 'change' }
+                    gender: [
+                        { required: false, message: '請選擇車主性別', trigger: 'blur' },
                     ],
-                    date1: [
-                        { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+                    phone: [
+                        { required: true, message: '請輸入車主手機號碼', trigger: 'blur' },
+                        {min:10, max:10, message:'長度10位數字', trigger:'blur'}
                     ],
-                    date2: [
-                        { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+                    email: [
+                        { required: false, message: '請輸入電子郵箱', trigger: 'blur' },
                     ],
-                    type: [
-                        { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+                    city: [
+                        { required: false, message: '請選擇所在城市', trigger: 'blur' },
                     ],
-                    resource: [
-                        { required: true, message: '请选择活动资源', trigger: 'change' }
+                    address: [
+                        { required: false, message: '請輸入車主地址', trigger: 'blur' },
                     ],
-                    desc: [
-                        { required: true, message: '请填写活动形式', trigger: 'blur' }
+                    brand: [
+                        { required: false, message: '請選擇車輛品牌', trigger: 'blur' }
+                    ],
+                    vehicleType: [
+                        { required: false, message: '請選擇車型', trigger: 'blur'}
+                    ],
+                    vehicleNum: [
+                        { required: true, message: '請輸入車牌號碼', trigger: 'blur' }
                     ]
                 }
             };
@@ -96,7 +163,8 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        alert("提交");
+                        this.open();
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -105,6 +173,20 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            open() {
+                this.$confirm('認證信息提交後無法更改, 是否繼續提交?', '重要提示', {
+                    confirmButtonText: '確定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '提交成功!'
+                    });
+                    alert('發起提交請求');
+                    this.$router.push('/customlogin')
+                }).catch(() => {});
             }
         }
     }

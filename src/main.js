@@ -20,7 +20,7 @@ Vue.prototype.axios = axios
 router.beforeEach((to,from,next) => {
   let islogin = sessionStorage.getItem('isLogin');
   //认证和查询页面不受此限制
-  if (to.path == '/login' | to.path == '/certify' | to.path == '/warranty' | to.path == '/check'){
+  if (to.path == '/customlogin' | to.path == '/certify' | to.path == '/warranty' | to.path == '/check'){
     next();
   }else {
     //退出前注销

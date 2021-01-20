@@ -1,14 +1,14 @@
 <template>
     <div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="login_Form">
-            <h2>质保查询</h2>
-            <el-form-item label="手机号码" prop="userphone">
+            <h2>太陽膜質保查詢</h2>
+            <el-form-item label="手機號碼" prop="userphone">
                 <el-input v-model="ruleForm.userphone"></el-input>
             </el-form-item>
-            <el-form-item label="车牌号码" prop="vehicleNum">
+            <el-form-item label="車牌號碼" prop="vehicleNum">
                 <el-input v-model="ruleForm.vehicleNum"></el-input>
             </el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" >确认</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')" >確認查詢</el-button>
         </el-form>
     </div>
 </template>
@@ -24,12 +24,11 @@
                 },
                 rules:{
                     userphone:[
-                        {required:true, message:'请输入您的手机号码', trigger:'blur' },
-                        {min:3, max:8, message:'长度在3～8个字符', trigger:'blur'}
+                        {required:true, message:'請輸入您的手機號碼', trigger:'blur' },
+                        {min:10, max:10, message:'長度10位數字', trigger:'blur'}
                     ],
                     vehicleNum: [
-                        {required:true, message:'请输入您的车牌号码', trigger:'blur' },
-                        {min:8, max:16, message:'长度在8～16个字符', trigger:'blur'}
+                        {required:true, message:'請輸入您的車牌號碼', trigger:'blur' },
                     ]
                 }
             }
@@ -38,14 +37,10 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$message({
-                            message: '查询成功！',
-                            type: 'success'
-                        });
                         this.$router.push('/warranty')
                     } else {
                         this.$message({
-                            message: '手机号码或车牌号码错误！',
+                            message: '未查詢到相關信息，請確保輸入的手機號碼或車牌號碼正確無誤！',
                             type: 'warning'
                         });
                         return false

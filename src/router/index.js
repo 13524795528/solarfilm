@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import login from '../views/login'
+import customlogin from '../views/customlogin'
 import warranty from '../views/warranty'
 import certify from '../views/certify'
 import check from '../views/check'
@@ -17,9 +17,9 @@ Vue.use(Router)
 
 const routes = [
   {  //客户登陆页
-    path:'/login',
-    name:'login',
-    component:login,
+    path:'/customlogin',
+    name:'customlogin',
+    component:customlogin,
     props: true
   },
   {  //质保信息页

@@ -1,14 +1,14 @@
 <template>
     <div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="90px" class="certify_Form">
-            <h2>认证</h2>
-            <el-form-item label="VIN后4位" prop="vin4">
+            <h2>車輛認證</h2>
+            <el-form-item label="VIN後4位" prop="vin4">
                 <el-input v-model="ruleForm.vin4"></el-input>
             </el-form-item>
-            <el-form-item label="施工单号" prop="worksheet">
+            <el-form-item label="保固卡號" prop="worksheet">
                 <el-input v-model="ruleForm.worksheet"></el-input>
             </el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" >确认</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')" >確認</el-button>
         </el-form>
     </div>
 </template>
@@ -24,12 +24,11 @@
                 },
                 rules:{
                     vin4:[
-                        {required:true, message:'请输入VIN码后4位', trigger:'blur' },
-                        {min:4, max:4, message:'长度4个字符', trigger:'blur'}
+                        {required:true, message:'請輸入VIN碼後4位', trigger:'blur' },
+                        {min:4, max:4, message:'VIN碼最後4個字符', trigger:'blur'}
                     ],
                     worksheet: [
-                        {required:true, message:'请输入施工单号', trigger:'blur' },
-                        {min:8, max:16, message:'长度在8～16个字符', trigger:'blur'}
+                        {required:true, message:'請輸入保固卡號', trigger:'blur' },
                     ]
                 }
             }
@@ -41,7 +40,7 @@
                         this.$router.push('/check')
                     } else {
                         this.$message({
-                            message: 'VIN码或施工单号错误！',
+                            message: '未查詢到該VIN碼或保固卡號，詳情請資訊銷售店！',
                             type: 'warning'
                         });
                         return false
