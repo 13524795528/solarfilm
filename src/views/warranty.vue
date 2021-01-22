@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>施工門店信息</p>
+        <span>施工門店信息</span>
         <el-table
                 :data="dealerData"
                 style="width: 100%">
@@ -29,7 +29,7 @@
                     width="180">
             </el-table-column>
         </el-table>
-        <p>車輛信息</p>
+        <span>車輛信息</span>
         <el-table
                 :data="vehicleData"
                 style="width: 100%">
@@ -88,7 +88,7 @@
                     width="120">
             </el-table-column>
         </el-table>
-        <p>施工信息</p>
+        <span>施工信息</span>
         <el-table :data="warrantyData">
             <el-table-column
                     prop="position"
@@ -194,7 +194,7 @@
         },
         methods:{
             turnback(){
-                this.$router.push('/customlogin')
+                this.$router.push('/customLogin')
             },
             // getData(){
             //     this.axios({

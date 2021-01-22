@@ -63,7 +63,7 @@
             </el-form-item>
             <el-form-item label="車輛品牌" prop="brand">
                 <el-select v-model="ruleForm.brand" placeholder="請選擇車輛品牌">
-                    <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.value"></el-option>
+                    <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.label"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="車型" prop="vehicleType">
@@ -96,25 +96,25 @@
                     warrantyNum:'123123123'
                 }],
                 vehicleBrandList:[
-                    {label:'Alfa_Romeo愛快_羅密歐',value:'AlfaRomeo'}, {label:'Aston_Martin奧斯頓_馬丁',value:'AstonMartin'}, {label:'Audi奧迪',value:'Audi'}, {label:'Acura歐歌',value:'Acura'}, {label:'Austin奧斯丁',value:'Austin'},
-                    {label:'Bentley賓利',value:'Bentley'}, {label:'BMW寶馬',value:'BMW'}, {label:'Buick別克',value:'Buick'}, {label:'Bugatti布卡堤',value:'Bugatti'},
-                    {label:'Cadillac凱迪拉克',value:'Cadillac'}, {label:'Citroen雪鐵龍',value:'Citroen'}, {label:'Chrysler克萊斯勒',value:'Chrysler'}, {label:'CMC中華汽車',value:'CMC'}, {label:'Chevrolet雪佛蘭',value:'Chevrolet'},
-                    {label:'Daihatsu大發',value:'Daihatsu'}, {label:'Dodge道奇',value:'Dodge'}, {label:'DFSK東風小康',value:'DFSK'},
-                    {label:'Ferrari法拉利',value:'Ferrari'}, {label:'Fiat飛雅特',value:'Fiat'}, {label:'Ford福特',value:'Ford'}, {label:'Formosa福爾摩沙',value:'Formosa'}, {label:'Foton福田',value:'Foton'},
-                    {label:'GMC通用',value:'GMC'},
-                    {label:'Honda本田',value:'Honda'}, {label:'Hyundai現代',value:'Hyundai'}, {label:'Hummer悍馬',value:'Hummer'},
-                    {label:'Ino日野',value:'Ino'}, {label:'Infiniti極致',value:'Infiniti'}, {label:'Isuzu五十鈴',value:'Isuzu'}, {label:'IVECO威凱',value:'IVECO'},
-                    {label:'Jaguar捷豹',value:'Jaguar'}, {label:'Jeep吉普',value:'Jeep'},
-                    {label:'Kia起亞',value:'Kia'},
-                    {label:'Lamborghini藍寶堅尼',value:'Lamborghini'}, {label:'Land_Rover荒原路華',value:'LandRover'}, {label:'Lexus凌志',value:'Lexus'}, {label:'Lotus蓮花',value:'Lotus'},{label:'Luxgen納智捷',value:'Luxgen'}, {label:'Lincoln林肯',value:'Lincoln'},
-                    {label:'Mercedes_Benz賓士',value:'MercedesBenz'}, {label:'Maserati瑪莎拉蒂',value:'Maserati'}, {label:'Mazda馬自達',value:'Mazda'}, {label:'Mini迷你',value:'Mini'}, {label:'Mitsubishi三菱',value:'Mitsubishi'}, {label:'McLaren麥拿侖',value:'McLaren'}, {label:'Morgan摩根',value:'Morgan'},
-                    {label:'Nissan日產',value:'Nissan'},
-                    {label:'Opel歐寶',value:'Opel'},
-                    {label:'Pagani帕加尼',value:'Pagani'}, {label:'Peugeo寶獅',value:'Peugeo'}, {label:'Porsche保時捷',value:'Porsche'},
-                    {label:'Rolls_Royce勞斯萊斯',value:'RollsRoyce'}, {label:'Renault雷諾',value:'Renault'},
-                    {label:'Saab紳寶',value:'Saab'}, {label:'Skoda斯柯達',value:'Skoda'}, {label:'Smart斯馬特',value:'Smart'}, {label:'Ssangyong雙龍',value:'Ssangyong'}, {label:'Subaru速霸陸',value:'Subaru'}, {label:'Suzuki鈴木',value:'Suzuki'},
-                    {label:'Toyota豐田',value:'Toyota'}, {label:'Tesla特斯拉',value:'Tesla'},
-                    {label:'Volkswagen福斯',value:'Volkswagen'}, {label:'Volvo富豪',value:'Volvo'}
+                    {label:'Alfa_Romeo 愛快_羅密歐',value:'AlfaRomeo'}, {label:'Aston_Martin 奧斯頓_馬丁',value:'AstonMartin'}, {label:'Audi 奧迪',value:'Audi'}, {label:'Acura 歐歌',value:'Acura'}, {label:'Austin 奧斯丁',value:'Austin'},
+                    {label:'Bentley 賓利',value:'Bentley'}, {label:'BMW 寶馬',value:'BMW'}, {label:'Buick 別克',value:'Buick'}, {label:'Bugatti 布卡堤',value:'Bugatti'},
+                    {label:'Cadillac 凱迪拉克',value:'Cadillac'}, {label:'Citroen 雪鐵龍',value:'Citroen'}, {label:'Chrysler 克萊斯勒',value:'Chrysler'}, {label:'CMC 中華汽車',value:'CMC'}, {label:'Chevrolet 雪佛蘭',value:'Chevrolet'},
+                    {label:'Daihatsu 大發',value:'Daihatsu'}, {label:'Dodge 道奇',value:'Dodge'}, {label:'DFSK 東風小康',value:'DFSK'},
+                    {label:'Ferrari 法拉利',value:'Ferrari'}, {label:'Fiat 飛雅特',value:'Fiat'}, {label:'Ford 福特',value:'Ford'}, {label:'Formosa 福爾摩沙',value:'Formosa'}, {label:'Foton 福田',value:'Foton'},
+                    {label:'GMC 通用',value:'GMC'},
+                    {label:'Honda 本田',value:'Honda'}, {label:'Hyundai 現代',value:'Hyundai'}, {label:'Hummer 悍馬',value:'Hummer'},
+                    {label:'Ino 日野',value:'Ino'}, {label:'Infiniti 極致',value:'Infiniti'}, {label:'Isuzu 五十鈴',value:'Isuzu'}, {label:'IVECO 威凱',value:'IVECO'},
+                    {label:'Jaguar 捷豹',value:'Jaguar'}, {label:'Jeep 吉普',value:'Jeep'},
+                    {label:'Kia 起亞',value:'Kia'},
+                    {label:'Lamborghini 藍寶堅尼',value:'Lamborghini'}, {label:'Land_Rover 荒原路華',value:'LandRover'}, {label:'Lexus 凌志',value:'Lexus'}, {label:'Lotus 蓮花',value:'Lotus'},{label:'Luxgen 納智捷',value:'Luxgen'}, {label:'Lincoln 林肯',value:'Lincoln'},
+                    {label:'Mercedes_Benz 賓士',value:'MercedesBenz'}, {label:'Maserati 瑪莎拉蒂',value:'Maserati'}, {label:'Mazda 馬自達',value:'Mazda'}, {label:'Mini 迷你',value:'Mini'}, {label:'Mitsubishi 三菱',value:'Mitsubishi'}, {label:'McLaren 麥拿侖',value:'McLaren'}, {label:'Morgan 摩根',value:'Morgan'},
+                    {label:'Nissan 日產',value:'Nissan'},
+                    {label:'Opel 歐寶',value:'Opel'},
+                    {label:'Pagani 帕加尼',value:'Pagani'}, {label:'Peugeo 寶獅',value:'Peugeo'}, {label:'Porsche 保時捷',value:'Porsche'},
+                    {label:'Rolls_Royce 勞斯萊斯',value:'RollsRoyce'}, {label:'Renault 雷諾',value:'Renault'},
+                    {label:'Saab 紳寶',value:'Saab'}, {label:'Skoda 斯柯達',value:'Skoda'}, {label:'Smart 斯馬特',value:'Smart'}, {label:'Ssangyong 雙龍',value:'Ssangyong'}, {label:'Subaru 速霸陸',value:'Subaru'}, {label:'Suzuki 鈴木',value:'Suzuki'},
+                    {label:'Toyota 豐田',value:'Toyota'}, {label:'Tesla 特斯拉',value:'Tesla'},
+                    {label:'Volkswagen 福斯',value:'Volkswagen'}, {label:'Volvo 富豪',value:'Volvo'}
                 ],
                 ruleForm: {
                     owner: '',

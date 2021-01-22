@@ -15,7 +15,7 @@
 
 <script>
     export default {
-        name: "login",
+        name: "customLogin",
         data() {
             return {
                 ruleForm:{

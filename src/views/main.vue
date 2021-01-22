@@ -5,8 +5,8 @@
                 <el-dropdown>
                     <i class="el-icon-setting" style="margin-right: 15px"></i>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>修改密码</el-dropdown-item>
-                        <el-dropdown-item>退出登陆</el-dropdown-item>
+                        <el-dropdown-item>修改密碼</el-dropdown-item>
+                        <el-dropdown-item>退出登錄</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
                 <span>{{$store.getters.getUser.usercode}}</span>
@@ -15,42 +15,38 @@
         <el-container style="height:100%; border:1px solid #eeeeee">
             <el-aside width="200px" style="background-color: rgb(238,241,246)">
                     <el-menu
-                            default-active="2"
+                            default-active="1"
                             class="el-menu-vertical-demo"
                             @open="handleOpen"
                             @close="handleClose"
                             background-color="#545c64"
                             text-color="#fff"
-                            active-text-color="#ffd04b">
-                        <el-submenu index="1">
+                            active-text-color="#fff">
+                        <el-menu-item index="1"><i class="el-icon-user"></i><router-link to="/main/client">客戶資料維護</router-link></el-menu-item>
+                        <el-menu-item index="2"><i class="el-icon-goods"></i><router-link to="/main/PDI">PDI車輛處理</router-link></el-menu-item>
+                        <el-menu-item index="3"><i class="el-icon-search"></i><router-link to="/main/dealerQuery">查詢統計</router-link></el-menu-item>
+                        <el-menu-item index="4"><i class="el-icon-edit"></i><router-link to="/main/clientModify">客戶數據修改</router-link></el-menu-item>
+                        <el-submenu index="5">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>导航一</span>
+                                <i class="el-icon-odometer"></i>
+                                <span>數據統計</span>
                             </template>
                             <el-menu-item-group>
-                                <template slot="title">分组一</template>
-                                <el-menu-item index="1-1"><router-link :to="{name:'PDI', params: {id:3}}">PDI ID=3</router-link></el-menu-item>
-                                <el-menu-item index="1-2"><router-link to="/gomain">回到首页</router-link></el-menu-item>
+                                <el-menu-item index="1-1"><router-link to="/main/salesData">銷售數據統計</router-link></el-menu-item>
+                                <el-menu-item index="1-2"><router-link to="/main/productMap">產品安裝分佈</router-link></el-menu-item>
                             </el-menu-item-group>
-                            <el-menu-item-group title="分组2">
-                                <el-menu-item index="1-3">选项3</el-menu-item>
-                            </el-menu-item-group>
-                            <el-submenu index="1-4">
-                                <template slot="title">选项4</template>
-                                <el-menu-item index="1-4-1">选项1</el-menu-item>
-                            </el-submenu>
                         </el-submenu>
-                        <el-menu-item index="2">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title"><router-link :to="{name:'client', params:{id:2}}">用户ID=2</router-link></span>
+                        <el-menu-item index="6">
+                            <i class="el-icon-present"></i>
+                            <router-link to="/main/productData">產品信息</router-link>
                         </el-menu-item>
-                        <el-menu-item index="3" disabled>
-                            <i class="el-icon-document"></i>
-                            <span slot="title">导航三</span>
+                        <el-menu-item index="7">
+                            <i class="el-icon-shopping-bag-1"></i>
+                            <router-link to="/main/dealersData">施工店資料</router-link>
                         </el-menu-item>
-                        <el-menu-item index="4">
+                        <el-menu-item index="8">
                             <i class="el-icon-setting"></i>
-                            <span slot="title">导航四</span>
+                            <router-link to="/main/userCtrl">用戶管理</router-link>
                         </el-menu-item>
                     </el-menu>
             </el-aside>
