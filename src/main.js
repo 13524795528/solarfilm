@@ -30,7 +30,7 @@ router.beforeEach((to,from,next) => {
       //已登陆则返回主页
     } else if (to.path == '/dealerLogin') {
       if (islogin != null) {
-        next({path: '/main'})
+        next({path: '/mainPage'})
       }
       //未登录则跳转登陆页
     } else if (islogin == null) {

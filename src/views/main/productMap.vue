@@ -1,8 +1,8 @@
 <template>
     <div>
-        <el-input v-model="input" aria-placeholder="請輸入施工門店編號"></el-input>
+        <el-input v-model="inputDealerCode" aria-placeholder="請輸入施工門店編號"></el-input>
         <el-date-picker
-                v-model="value2"
+                v-model="valueDate"
                 type="daterange"
                 align="right"
                 unlink-panels
@@ -15,7 +15,21 @@
         <br>
         <el-divider/>
         <br>
-        <router-view/>
+        <el-table
+                :data="productMap"
+                :visible="productMapVisible"
+                stripe
+                border
+                height="120"
+                style="width:100%">
+            <el-table-column prop="productCode" label="產品編碼" width="120px"></el-table-column>
+            <el-table-column prop="frontFace" label="前擋" width="120px"></el-table-column>
+            <el-table-column prop="frontSide" label="前側窗" width="120px"></el-table-column>
+            <el-table-column prop="backSide" label="後側窗" width="120px"></el-table-column>
+            <el-table-column prop="backFace" label="後擋" width="120px"></el-table-column>
+            <el-table-column prop="topWindow" label="天窗" width="120px"></el-table-column>
+            <el-table-column label="總計" width="100px"></el-table-column>
+        </el-table>
     </div>
 </template>
 
@@ -24,6 +38,8 @@
         name: "productMap",
         data(){
             return {
+                inputDealerCode:'',
+                productMapVisible:false,
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -51,7 +67,14 @@
                         }
                     }]
                 },
-                value2: ''
+                valueDate: '',
+                productMap:[]
+            }
+        },
+        methods:{
+            submitQuery(){
+                alert('提交查詢');
+                this.productMapVisible = true
             }
         }
     }

@@ -1,0 +1,98 @@
+<template>
+    <div>
+        <el-container>
+            <el-header style="text-align: right; font-size: 12px">
+                <el-dropdown>
+                    <i class="el-icon-setting" style="margin-right: 15px"></i>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>修改密碼</el-dropdown-item>
+                        <el-dropdown-item>退出登錄</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <span>{{$store.getters.getUser.usercode}}</span>
+            </el-header>
+        </el-container>
+        <el-container style="height:100%; border:1px solid #eeeeee">
+            <el-aside width="200px" style="background-color: rgb(238,241,246)">
+                <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                        @open="handleOpen"
+                        @close="handleClose"
+                        background-color="#545c64"
+                        text-color="#fff"
+                        active-text-color="#ffd04b"
+                        router
+                        unique-opened
+                        align="left">
+                    <el-menu-item index="1" route="/main/client" >
+                        <i class="el-icon-user"></i>
+                        <span slot="title">客戶資料錄入</span>
+                    </el-menu-item>
+                    <el-menu-item index="2" route="/main/PDI" >
+                        <i class="el-icon-goods"></i>
+                        <span slot="title">PDI車輛錄入</span>
+                    </el-menu-item>
+                    <el-menu-item index="3" route="/main/dealerQuery" >
+                        <i class="el-icon-search"></i>
+                        <span slot="title">施工查詢統計</span>
+                    </el-menu-item>
+                    <el-menu-item index="4" route="/main/clientModify" >
+                        <i class="el-icon-edit"></i>
+                        <span slot="title">客戶資料修改</span>
+                    </el-menu-item>
+                    <el-submenu index="5" >
+                        <template slot="title">
+                            <i class="el-icon-printer" ></i>
+                            <span>數據統計</span>
+                        </template>
+                            <el-menu-item index="5-1" route="/main/salesData">銷售數據統計</el-menu-item>
+                            <el-menu-item index="5-2" route="/main/productMap">產品安裝分佈</el-menu-item>
+                    </el-submenu>
+                    <el-menu-item index="6" route="/main/productData" >
+                        <i class="el-icon-present"></i>
+                        <span slot="title">產品信息</span>
+                    </el-menu-item>
+                    <el-menu-item index="7" route="/main/dealersData" >
+                        <i class="el-icon-shopping-bag-1"></i>
+                        <span slot="title">施工店資料</span>
+                    </el-menu-item>
+                    <el-menu-item index="8" route="/main/userCtrl" >
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">用戶管理</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-aside>
+            <el-main>
+                <p>我是main内容框</p>
+                <router-view/>
+            </el-main>
+        </el-container>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "mainPage",
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .el-header {
+        background-color: #B3C0D1;
+        color: #333;
+        line-height: 60px;
+    }
+
+    .el-aside {
+        color: #333;
+    }
+</style>

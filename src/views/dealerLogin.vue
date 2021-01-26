@@ -40,7 +40,7 @@
                     if (valid) {
                         sessionStorage.setItem('isLogin','true');
                         this.$store.dispatch('asyncUpdateUser',{usercode:this.ruleForm.usercode});
-                        this.$router.push({name:'main', params:{usercode:this.ruleForm.usercode}});
+                        this.$router.push({name:'mainPage', params:{usercode:this.ruleForm.usercode}});
                     } else {
                         this.$message({
                             message: '门店编号或密码错误！',

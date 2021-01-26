@@ -1,21 +1,38 @@
 <template>
     <div>
-        <el-input v-model="input" aria-placeholder="請輸入施工門店編號"></el-input>
+        <el-input v-model="inputDealer" aria-placeholder="請輸入施工門店編號"></el-input>
         <el-date-picker
-                v-model="value2"
-                type="daterange"
-                align="right"
-                unlink-panels
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :picker-options="pickerOptions">
+                v-model="valueYear"
+                type="year"
+                placeholder="選擇年份">
         </el-date-picker>
         <el-button @click="submitQuery">查詢</el-button>
         <br>
         <el-divider/>
         <br>
-        <router-view/>
+        <el-table
+                :data="salesList"
+                :visible="salesListVisible"
+                stripe
+                border
+                height="120"
+                style="width:100%">
+            <el-table-column prop="dealerName" label="施工店名稱" width="100px"></el-table-column>
+            <el-table-column prop="dealerCode" label="門店編號" width="100px"></el-table-column>
+            <el-table-column prop="Jan" label="一月" width="80px"></el-table-column>
+            <el-table-column prop="Feb" label="二月" width="80px"></el-table-column>
+            <el-table-column prop="Mar" label="三月" width="80px"></el-table-column>
+            <el-table-column prop="Apr" label="四月" width="80px"></el-table-column>
+            <el-table-column prop="May" label="五月" width="80px"></el-table-column>
+            <el-table-column prop="Jun" label="六月" width="80px"></el-table-column>
+            <el-table-column prop="Jul" label="七月" width="80px"></el-table-column>
+            <el-table-column prop="Aug" label="八月" width="80px"></el-table-column>
+            <el-table-column prop="Sep" label="九月" width="80px"></el-table-column>
+            <el-table-column prop="Oct" label="十月" width="80px"></el-table-column>
+            <el-table-column prop="Nov" label="十一月" width="80px"></el-table-column>
+            <el-table-column prop="Dec" label="十二月" width="80px"></el-table-column>
+            <el-table-column label="總計" width="100px"></el-table-column>
+        </el-table>
     </div>
 </template>
 
@@ -24,34 +41,16 @@
         name: "salesData",
         data(){
             return {
-                pickerOptions: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
-                value2: ''
+                valueYear: '',
+                inputDealer: '',
+                salesListVisible:false,
+                salesList:[]
+            }
+        },
+        methods:{
+            submitQuery(){
+                alert('提交統計查詢');
+                this.salesListVisible = true
             }
         }
     }

@@ -6,7 +6,7 @@ import warranty from '../views/warranty'
 import certify from '../views/certify'
 import check from '../views/check'
 import dealerLogin from '../views/dealerLogin'
-import main from '../views/main'
+import mainPage from '../views/mainPage'
 import page404 from '../views/page404'
 
 import client from '../views/main/client'
@@ -27,38 +27,32 @@ const routes = [
   {  //客户登陆页
     path:'/customLogin',
     name:'customLogin',
-    component:customLogin,
-    props: true
+    component:customLogin
   },
   {  //质保信息页
     path:'/warranty',
     name:'warranty',
-    component:warranty,
-    props: true
+    component:warranty
   },
   {  //认证入口
     path:'/certify',
     name:'certify',
-    component:certify,
-    props: true
+    component:certify
   },
   {  //认证内容页
     path:'/check',
     name:'check',
-    component:check,
-    props: true
+    component:check
   },
   {  //施工店入口
     path:'/dealerLogin',
     name:'dealerLogin',
-    component:dealerLogin,
-    props: true
+    component:dealerLogin
   },
   {  //首页
-    path:'/main',
-    name:'main',
-    component:main,
-    props: true,
+    path:'/mainPage',
+    name:'mainPage',
+    component:mainPage,
     children: [
       {path:'/main/client', name:'client',component:client,children:
             [{path:'/main/client/newClient', name:'newClient',component:newClient}]
@@ -75,7 +69,7 @@ const routes = [
   },
   {  //重定向
     path:'/gomain',
-    redirect:'/main'
+    redirect:'/mainPage'
   },
   {  //404页面
     path:'*',
