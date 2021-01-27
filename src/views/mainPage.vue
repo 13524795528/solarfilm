@@ -1,19 +1,20 @@
 <template>
-    <div>
-        <el-container>
+    <div id="app">
+        <el-container style="height:100%">
             <el-header style="text-align: right; font-size: 12px">
                 <el-dropdown>
-                    <i class="el-icon-setting" style="margin-right: 15px"></i>
+                    <i class="el-icon-user-solid" style="margin-right: 15px"></i>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>修改密碼</el-dropdown-item>
-                        <el-dropdown-item>退出登錄</el-dropdown-item>
+                        <el-dropdown-item >修改密碼</el-dropdown-item>
+                        <el-dropdown-item >退出登錄</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
                 <span>{{$store.getters.getUser.usercode}}</span>
             </el-header>
-        </el-container>
-        <el-container style="height:100%; border:1px solid #eeeeee">
-            <el-aside width="200px" style="background-color: rgb(238,241,246)">
+
+        <el-container style="height:100% border:1px solid #eeeeee" >
+
+            <el-aside width="200px"  style="height:100% background-color: rgb(238,241,246)">
                 <el-menu
                         default-active="2"
                         class="el-menu-vertical-demo"
@@ -24,7 +25,9 @@
                         active-text-color="#ffd04b"
                         router
                         unique-opened
-                        align="left">
+                        align="left"
+                        style="height:100%">
+                    <br><br>
                     <el-menu-item index="1" route="/main/client" >
                         <i class="el-icon-user"></i>
                         <span slot="title">客戶資料錄入</span>
@@ -62,11 +65,13 @@
                         <span slot="title">用戶管理</span>
                     </el-menu-item>
                 </el-menu>
+
             </el-aside>
-            <el-main>
-                <p>我是main内容框</p>
+            <el-main style="height:100%">
                 <router-view/>
             </el-main>
+
+        </el-container>
         </el-container>
     </div>
 </template>
@@ -74,6 +79,11 @@
 <script>
     export default {
         name: "mainPage",
+        data(){
+            return {
+                changePasswordVisible:false
+            }
+        },
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
@@ -86,6 +96,7 @@
 </script>
 
 <style scoped>
+    html,body,#app{height:100%;margin:0;top:0}
     .el-header {
         background-color: #B3C0D1;
         color: #333;
@@ -95,4 +106,9 @@
     .el-aside {
         color: #333;
     }
+
+    .el-main {
+        background-color: #E9EEF3;
+    }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="height: 100%">
     <router-view/>
   </div>
 </template>
@@ -19,7 +19,13 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  body,html {
+    margin: 0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -27,4 +33,5 @@
     text-align: center;
     color: #2c3e50;
   }
+
 </style>

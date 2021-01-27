@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <el-input v-model="inputQuery.inputWarranty" aria-placeholder="請輸入保固卡號"></el-input>
         <el-input v-model="inputQuery.inputVin4" aria-placeholder="請輸入VIN碼後4位"></el-input>
         <el-button @click="submitQuery">查詢</el-button>

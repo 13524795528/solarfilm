@@ -3,11 +3,11 @@
         <el-button @click="newProductVisible = true">增加產品</el-button>
         <br>
         <el-dialog
-                title="增加車輛信息" :visible.sync="newClientVisible" width="75%" center>
-            <span>車輛信息</span>
+                title="增加產品" :visible.sync="newProductVisible" width="75%" center>
+            <span>產品信息</span>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="nextStep">確定</el-button>
-                <el-button @click="newClientVisible = false">取消</el-button>
+                <el-button type="primary" @click="submitNewProduct">確定</el-button>
+                <el-button @click="newProductVisible = false">取消</el-button>
             </span>
         </el-dialog>
         <el-divider/>
@@ -51,6 +51,12 @@
         },
         mounted() {
             alert('取產品信息')
+        },
+        methods:{
+            submitNewProduct(){
+                alert('提交新產品');
+                this.newProductVisible = false
+            }
         }
     }
 </script>
