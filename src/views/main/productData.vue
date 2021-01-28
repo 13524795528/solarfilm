@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="subpage">
         <el-button @click="newProductVisible = true">增加產品</el-button>
         <br>
         <el-dialog
@@ -17,7 +17,7 @@
                 :data="productInfo"
                 stripe
                 border
-                height="120"
+                height="95%"
                 style="width:100%">
             <el-table-column prop="productType" label="產品類別" width="100px"></el-table-column>
             <el-table-column prop="productSeries" label="產品系列" width="100px"></el-table-column>
@@ -62,5 +62,7 @@
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>

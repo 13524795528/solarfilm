@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="subpage">
         <el-input v-model="inputDealer" aria-placeholder="請輸入施工門店編號"></el-input>
         <el-date-picker
                 v-model="valueYear"
@@ -15,7 +15,7 @@
                 :visible="salesListVisible"
                 stripe
                 border
-                height="120"
+                height="95%"
                 style="width:100%">
             <el-table-column prop="dealerName" label="施工店名稱" width="100px"></el-table-column>
             <el-table-column prop="dealerCode" label="門店編號" width="100px"></el-table-column>
@@ -57,5 +57,7 @@
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>

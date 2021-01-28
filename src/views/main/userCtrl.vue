@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="subpage">
         <el-input v-model="inputUser" aria-placeholder="請輸入用戶名"></el-input>
         <el-button @click="submitQuery">查詢</el-button>
         <el-button @click="newUserVisible = true">增加用戶</el-button>
@@ -19,7 +19,7 @@
                 :data="userList"
                 stripe
                 border
-                height="120"
+                height="95%"
                 style="width:100%">
             <el-table-column prop="userName" label="用戶名" width="100px"></el-table-column>
             <el-table-column prop="userType" label="角色" width="100px"></el-table-column>
@@ -60,5 +60,7 @@
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="subpage">
         <el-input v-model="inputDealerCode" aria-placeholder="請輸入門店編號"></el-input>
         <el-button @click="submitQuery">查詢</el-button>
         <el-button @click="newDealerVisible = true">增加施工店</el-button>
@@ -19,7 +19,7 @@
                 :data="dealersList"
                 stripe
                 border
-                height="120"
+                height="90%"
                 style="width:100%">
             <el-table-column prop="dealerName" label="施工店名稱" width="100px"></el-table-column>
             <el-table-column prop="dealerCode" label="門店編碼" width="100px"></el-table-column>
@@ -66,5 +66,7 @@
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>

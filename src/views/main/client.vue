@@ -1,18 +1,154 @@
 <template>
-    <div>
+    <div class="subpage">
         <el-input v-model="searchInput.inputName" aria-placeholder="請輸入車主姓名"></el-input>
         <el-input v-model="searchInput.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
         <el-input v-model="searchInput.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
         <el-button @click="submitQuery">查詢</el-button>
-        <el-button @click="newClientVisible = true">增加車輛信息</el-button>
+        <el-button @click="addNewClient">增加車輛信息</el-button>
 
         <el-dialog
-            title="增加車輛信息" :visible.sync="newClientVisible" width="75%" center>
+            title="增加車輛信息" :visible.sync="newClientVisible" width="70%" center>
+            <span>施工門店編號：</span> {{dealerCode}}
+            <br>
             <span>車輛信息</span>
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="nextStep">確定</el-button>
-                <el-button @click="newClientVisible = false">取消</el-button>
-            </span>
+                <el-form ref="newClient" :rules="rules" :model="newClient" label-width="20%" class="check-ruleForm">
+                    <el-form-item label="車主姓名" prop="owner">
+                        <el-input v-model="newClient.owner"></el-input>
+                    </el-form-item>
+                    <el-form-item label="車主性別" prop="gender">
+                        <el-select v-model="newClient.gender" placeholder="請選擇車主性別">
+                            <el-option label="男" value="male"></el-option>
+                            <el-option label="女" value="female"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="手機號" prop="phone">
+                        <el-input v-model="newClient.phone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="郵箱" prop="email">
+                        <el-input v-model="newClient.email"></el-input>
+                    </el-form-item>
+                    <el-form-item label="所在城市" prop="city">
+                        <el-select v-model="newClient.city" placeholder="請選擇所在城市">
+                          <el-option label="台北市" value="Taipei"></el-option>
+                          <el-option label="新北市" value="Xinbei"></el-option>
+                          <el-option label="桃園市" value="Taoyuan"></el-option>
+                          <el-option label="台中市" value="Taizhong"></el-option>
+                          <el-option label="台南市" value="tainan"></el-option>
+                          <el-option label="高雄市" value="Gaoxiong"></el-option>
+                          <el-option label="基隆市" value="Jilong"></el-option>
+                          <el-option label="新竹市" value="Xinzhu"></el-option>
+                          <el-option label="嘉義市" value="Jiayi"></el-option>
+                            <el-option label="新竹縣" value="Xinzhuxian"></el-option>
+                          <el-option label="苗栗縣" value="Miaolixian"></el-option>
+                          <el-option label="彰化縣" value="Zhanghuaxian"></el-option>
+                          <el-option label="南投縣" value="Nantouxian"></el-option>
+                          <el-option label="雲林縣" value="Yunlinxian"></el-option>
+                          <el-option label="嘉義縣" value="Jiayixian"></el-option>
+                          <el-option label="屏東縣" value="Pingdongxian"></el-option>
+                          <el-option label="宜蘭縣" value="Yilanxian"></el-option>
+                          <el-option label="花蓮縣" value="Hualianxian"></el-option>
+                          <el-option label="臺東縣" value="Taidongxian"></el-option>
+                          <el-option label="澎湖縣" value="Penghuxian"></el-option>
+                          <el-option label="金門縣" value="Jinmenxian"></el-option>
+                          <el-option label="連江縣" value="Lianjiangxian"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="地址" prop="address">
+                        <el-input v-model="newClient.address"></el-input>
+                    </el-form-item>
+                    <el-form-item label="車輛品牌" prop="brand">
+                        <el-select v-model="newClient.brand" placeholder="請選擇車輛品牌">
+                            <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.label"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="車型" prop="vehicleType">
+                        <el-select v-model="newClient.vehicleType" placeholder="請選擇車型">
+                            <el-option label="轎車" value="car"></el-option>
+                            <el-option label="休旅車" value="RV"></el-option>
+                            <el-option label="皮卡車" value="Pickup"></el-option>
+                            <el-option label="貨車" value="lorry"></el-option>
+                            <el-option label="其他" value="other"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="車牌號碼" prop="vehicleNum">
+                        <el-input v-model="newClient.vehicleNum"></el-input>
+                    </el-form-item>
+                    <el-form-item label="VIN碼後4位" prop="Vin4">
+                        <el-input v-model="newClient.Vin4"></el-input>
+                    </el-form-item>
+                    <el-form-item label="保固卡號" prop="warrantyNum">
+                        <el-input v-model="newClient.warrantyNum"></el-input>
+                    </el-form-item>
+            <span>施工信息</span>
+                    <el-form-item label="前擋產品編碼" prop="frontFaceProductCode">
+                        <el-select v-model="newClient.frontFaceProductCode" placeholder="請選擇產品編碼">
+                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="前擋卷號" prop="frontFaceBatchCode">
+                        <el-input v-model="newClient.frontFaceBatchCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="前擋包裝盒號" prop="frontFaceBoxCode">
+                        <el-input v-model="newClient.frontFaceBoxCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="前側產品編碼" prop="frontSideProductCode">
+                        <el-select v-model="newClient.frontSideProductCode" placeholder="請選擇產品編碼">
+                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="前側卷號" prop="frontSideBatchCode">
+                        <el-input v-model="newClient.frontSideBatchCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="前側包裝盒號" prop="frontSideBoxCode">
+                        <el-input v-model="newClient.frontSideBoxCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="後側產品編碼" prop="backSideProductCode">
+                        <el-select v-model="newClient.backSideProductCode" placeholder="請選擇產品編碼">
+                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="後側卷號" prop="backSideBatchCode">
+                        <el-input v-model="newClient.backSideBatchCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="後側包裝盒號" prop="backSideBoxCode">
+                        <el-input v-model="newClient.backSideBoxCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="後擋產品編碼" prop="backFaceProductCode">
+                        <el-select v-model="newClient.backFaceProductCode" placeholder="請選擇產品編碼">
+                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="後擋卷號" prop="backFaceBatchCode">
+                        <el-input v-model="newClient.backFaceBatchCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="後擋包裝盒號" prop="backFaceBoxCode">
+                        <el-input v-model="newClient.backFaceBoxCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="天窗產品編碼" prop="skylightProductCode">
+                        <el-select v-model="newClient.skylightProductCode" placeholder="請選擇產品編碼">
+                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="天窗卷號" prop="skylightBatchCode">
+                        <el-input v-model="newClient.skylightBatchCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="天窗包裝盒號" prop="skylightBoxCode">
+                        <el-input v-model="newClient.skylightBoxCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="施工日期" prop="warrantyDate">
+                        <el-date-picker
+                                v-model="newClient.warrantyDate"
+                                type="date"
+                                placeholder="选择日期"
+                                :picker-options="pickerOptions">
+                        </el-date-picker>
+                    </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="submitForm('newClient')">確定</el-button>
+                    <el-button @click="newClientVisible = false">取消</el-button>
+            </div>
         </el-dialog>
         <br>
         <el-divider/>
@@ -21,7 +157,7 @@
             :data="clientList"
             stripe
             border
-            height="120"
+            height="95%"
             style="width:100%">
             <el-table-column prop="owner" label="車主姓名" width="80px"></el-table-column>
             <el-table-column prop="gender" label="車主性別" width="60px"></el-table-column>
@@ -34,7 +170,10 @@
             <el-table-column prop="vehicleNum" label="車牌號碼" width="80px"></el-table-column>
             <el-table-column prop="Vin4" label="VIN碼後4位" width="100px"></el-table-column>
             <el-table-column prop="warrantyNum" label="保固卡號" width="100px"></el-table-column>
-            <el-table-column label="操作" width="260px"><el-button>查看施工信息</el-button><el-button>刪除</el-button></el-table-column>
+            <el-table-column label="操作" width="260px">
+                <el-button @click="showWarranty()">查看施工信息</el-button>
+                <el-button @click="deleteClient()">刪除</el-button>
+            </el-table-column>
         </el-table>
     </div>
 </template>
@@ -44,6 +183,7 @@
         name: "client",
         data(){
             return {
+                dealerCode:'Y0001',
                 newClientVisible:false,
                 searchInput:{
                     inputName:'',
@@ -55,6 +195,147 @@
                      {owner:'李四',gender:'男',phone:'0922222222',email:'11@11',city:'台北市',address:'1路2號',brand:'audi',vehicleType:'RV',vehicleNum:'2222',Vin4:'2222',warrantyNum:'222222',dealerCode:'111111111' },
                      {owner:'王武',gender:'男',phone:'0933333333',email:'11@11',city:'台北市',address:'1路2號',brand:'audi',vehicleType:'car',vehicleNum:'3333',Vin4:'3333',warrantyNum:'333333',dealerCode:'111111111' }
                     ],
+                newClient: {
+                    owner: '',
+                    gender: '',
+                    phone:'',
+                    email:'',
+                    city:'',
+                    address:'',
+                    brand: '',
+                    vehicleType: '',
+                    vehicleNum: '',
+                    Vin4:'',
+                    warrantyNum:'',
+                    frontFaceProductCode:'',
+                    frontFaceBatchCode:'',
+                    frontFaceBoxCode:'',
+                    frontSideProductCode:'',
+                    frontSideBatchCode:'',
+                    frontSideBoxCode:'',
+                    backSideProductCode:'',
+                    backSideBatchCode:'',
+                    backSideBoxCode:'',
+                    backFaceProductCode:'',
+                    backFaceBatchCode:'',
+                    backFaceBoxCode:'',
+                    skylightProductCode:'',
+                    skylightBatchCode:'',
+                    skylightBoxCode:'',
+                    warrantyDate:''
+                },
+                rules: {
+                    owner: [
+                        { required: true, message: '請輸入車主姓名', trigger: 'blur' },
+                    ],
+                    gender: [
+                        { required: false, message: '請選擇車主性別', trigger: 'blur' },
+                    ],
+                    phone: [
+                        { required: true, message: '請輸入車主手機號碼', trigger: 'blur' },
+                        {min:10, max:10, message:'長度10位數字', trigger:'blur'}
+                    ],
+                    email: [
+                        { required: false, message: '請輸入電子郵箱', trigger: 'blur' },
+                    ],
+                    city: [
+                        { required: false, message: '請選擇所在城市', trigger: 'blur' },
+                    ],
+                    address: [
+                        { required: false, message: '請輸入車主地址', trigger: 'blur' },
+                    ],
+                    brand: [
+                        { required: false, message: '請選擇車輛品牌', trigger: 'blur' }
+                    ],
+                    vehicleType: [
+                        { required: false, message: '請選擇車型', trigger: 'blur'}
+                    ],
+                    vehicleNum: [
+                        { required: true, message: '請輸入車牌號碼', trigger: 'blur' }
+                    ],
+                    Vin4: [
+                        { required: false, message: '請輸入VIN碼後4位', trigger: 'blur' }
+                    ],
+                    warrantyNum: [
+                        { required: false, message: '請輸入保固卡號', trigger: 'blur' }
+                    ],
+                        frontFaceProductCode: [
+                        { required: true, message: '請輸入產品編碼', trigger: 'blur' }
+                    ],
+                        frontFaceBatchCode: [
+                        { required: true, message: '請輸入產品卷號', trigger: 'blur' }
+                    ],
+                        frontFaceBoxCode: [
+                        { required: false, message: '請輸入產品包裝盒號', trigger: 'blur' }
+                    ],
+                        frontSideProductCode: [
+                        { required: true, message: '請輸入產品編碼', trigger: 'blur' }
+                    ],
+                        frontSideBatchCode: [
+                        { required: true, message: '請輸入產品卷號', trigger: 'blur' }
+                    ],
+                        frontSideBoxCode: [
+                        { required: false, message: '請輸入產品包裝盒號', trigger: 'blur' }
+                    ],
+                        backSideProductCode: [
+                        { required: true, message: '請輸入產品編碼', trigger: 'blur' }
+                    ],
+                        backSideBatchCode: [
+                        { required: true, message: '請輸入產品卷號', trigger: 'blur' }
+                    ],
+                        backSideBoxCode: [
+                        { required: false, message: '請輸入產品包裝盒號', trigger: 'blur' }
+                    ],
+                        backFaceProductCode: [
+                        { required: true, message: '請輸入產品編碼', trigger: 'blur' }
+                    ],
+                        backFaceBatchCode: [
+                        { required: true, message: '請輸入產品卷號', trigger: 'blur' }
+                    ],
+                        backFaceBoxCode: [
+                        { required: false, message: '請輸入產品包裝盒號', trigger: 'blur' }
+                    ],
+                        skylightProductCode: [
+                        { required: true, message: '請輸入產品編碼', trigger: 'blur' }
+                    ],
+                        skylightBatchCode: [
+                        { required: true, message: '請輸入產品卷號', trigger: 'blur' }
+                    ],
+                        skylightBoxCode: [
+                        { required: false, message: '請輸入產品包裝盒號', trigger: 'blur' }
+                    ],
+                        warrantyDate: [
+                        { required: true, message: '請選擇施工日期', trigger: 'blur' }
+                    ]
+                },
+                vehicleBrandList:[
+                {label:'Alfa_Romeo 愛快_羅密歐',value:'AlfaRomeo'}, {label:'Aston_Martin 奧斯頓_馬丁',value:'AstonMartin'}, {label:'Audi 奧迪',value:'Audi'}, {label:'Acura 歐歌',value:'Acura'}, {label:'Austin 奧斯丁',value:'Austin'},
+                {label:'Bentley 賓利',value:'Bentley'}, {label:'BMW 寶馬',value:'BMW'}, {label:'Buick 別克',value:'Buick'}, {label:'Bugatti 布卡堤',value:'Bugatti'},
+                {label:'Cadillac 凱迪拉克',value:'Cadillac'}, {label:'Citroen 雪鐵龍',value:'Citroen'}, {label:'Chrysler 克萊斯勒',value:'Chrysler'}, {label:'CMC 中華汽車',value:'CMC'}, {label:'Chevrolet 雪佛蘭',value:'Chevrolet'},
+                {label:'Daihatsu 大發',value:'Daihatsu'}, {label:'Dodge 道奇',value:'Dodge'}, {label:'DFSK 東風小康',value:'DFSK'},
+                {label:'Ferrari 法拉利',value:'Ferrari'}, {label:'Fiat 飛雅特',value:'Fiat'}, {label:'Ford 福特',value:'Ford'}, {label:'Formosa 福爾摩沙',value:'Formosa'}, {label:'Foton 福田',value:'Foton'},
+                {label:'GMC 通用',value:'GMC'},
+                {label:'Honda 本田',value:'Honda'}, {label:'Hyundai 現代',value:'Hyundai'}, {label:'Hummer 悍馬',value:'Hummer'},
+                {label:'Ino 日野',value:'Ino'}, {label:'Infiniti 極致',value:'Infiniti'}, {label:'Isuzu 五十鈴',value:'Isuzu'}, {label:'IVECO 威凱',value:'IVECO'},
+                {label:'Jaguar 捷豹',value:'Jaguar'}, {label:'Jeep 吉普',value:'Jeep'},
+                {label:'Kia 起亞',value:'Kia'},
+                {label:'Lamborghini 藍寶堅尼',value:'Lamborghini'}, {label:'Land_Rover 荒原路華',value:'LandRover'}, {label:'Lexus 凌志',value:'Lexus'}, {label:'Lotus 蓮花',value:'Lotus'},{label:'Luxgen 納智捷',value:'Luxgen'}, {label:'Lincoln 林肯',value:'Lincoln'},
+                {label:'Mercedes_Benz 賓士',value:'MercedesBenz'}, {label:'Maserati 瑪莎拉蒂',value:'Maserati'}, {label:'Mazda 馬自達',value:'Mazda'}, {label:'Mini 迷你',value:'Mini'}, {label:'Mitsubishi 三菱',value:'Mitsubishi'}, {label:'McLaren 麥拿侖',value:'McLaren'}, {label:'Morgan 摩根',value:'Morgan'},
+                {label:'Nissan 日產',value:'Nissan'},
+                {label:'Opel 歐寶',value:'Opel'},
+                {label:'Pagani 帕加尼',value:'Pagani'}, {label:'Peugeo 寶獅',value:'Peugeo'}, {label:'Porsche 保時捷',value:'Porsche'},
+                {label:'Rolls_Royce 勞斯萊斯',value:'RollsRoyce'}, {label:'Renault 雷諾',value:'Renault'},
+                {label:'Saab 紳寶',value:'Saab'}, {label:'Skoda 斯柯達',value:'Skoda'}, {label:'Smart 斯馬特',value:'Smart'}, {label:'Ssangyong 雙龍',value:'Ssangyong'}, {label:'Subaru 速霸陸',value:'Subaru'}, {label:'Suzuki 鈴木',value:'Suzuki'},
+                {label:'Toyota 豐田',value:'Toyota'}, {label:'Tesla 特斯拉',value:'Tesla'},
+                {label:'Volkswagen 福斯',value:'Volkswagen'}, {label:'Volvo 富豪',value:'Volvo'}
+            ],
+                productList:['MK70','MK35','N25','R20'],
+                pickerOptions:{
+                    disabledDate(time)
+                    {
+                        return time.getTime() > Date.now()
+                    }
+                }
             }
         },
         mounted() {
@@ -64,14 +345,47 @@
             submitQuery(){
                 alert('tijiao查詢')
             },
-            nextStep(){
-                alert("tijiao新車輛");
-                this.newClientVisible = false
+            addNewClient(){
+                alert('取產品信息')
+                this.newClientVisible = true
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert("提交新車輛信息");
+                        this.newClientVisible = false
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            deleteClient() {
+                this.$confirm('此操作将永久删除该用戶, 是否继续?', '重要提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            showWarranty(index){
+                alert('顯示該條施工信息，車牌號：'+ index)
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>

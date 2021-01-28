@@ -19,7 +19,6 @@ import productData from '../views/main/productData'
 import dealersData from '../views/main/dealersData'
 import userCtrl from '../views/main/userCtrl'
 
-import newClient from '../views/main/client/newClient'
 
 Vue.use(Router)
 
@@ -54,9 +53,7 @@ const routes = [
     name:'mainPage',
     component:mainPage,
     children: [
-      {path:'/main/client', name:'client',component:client,children:
-            [{path:'/main/client/newClient', name:'newClient',component:newClient}]
-      },
+      {path:'/main/client', name:'client',component:client},
       {path:'/main/PDI', name:'PDI',component:PDI},
       {path:'/main/dealerQuery', name:'dealerQuery',component:dealerQuery},
       {path:'/main/clientModify', name:'clientModify',component:clientModify},

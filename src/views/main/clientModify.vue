@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="subpage">
         <el-input v-model="searchInput1.inputName" aria-placeholder="請輸入車主姓名"></el-input>
         <el-input v-model="searchInput1.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
         <el-input v-model="searchInput1.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
@@ -38,5 +38,7 @@
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>

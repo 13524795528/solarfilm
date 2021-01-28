@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="subpage">
         <el-input v-model="inputQuery.inputWarranty" aria-placeholder="請輸入保固卡號"></el-input>
         <el-input v-model="inputQuery.inputVin4" aria-placeholder="請輸入VIN碼後4位"></el-input>
         <el-button @click="submitQuery">查詢</el-button>
@@ -21,7 +21,7 @@
                 :data="PDIList"
                 stripe
                 border
-                height="120"
+                height="95%"
                 style="width:100%">
             <el-table-column prop="dealerCode" label="門店編號" width="200px"></el-table-column>
             <el-table-column prop="Vin4" label="VIN碼後4位" width="200px"></el-table-column>
@@ -66,5 +66,7 @@
 </script>
 
 <style scoped>
-
+    .subpage {
+        height:100%
+    }
 </style>
