@@ -69,7 +69,7 @@
             </el-table-column>
             <el-table-column
                     prop="vehicletype"
-                    label="車輛型號"
+                    label="車型"
                     width="100">
             </el-table-column>
             <el-table-column

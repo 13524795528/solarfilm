@@ -17,9 +17,9 @@
         <br>
         <el-table
                 :data="productMap"
-                :visible="productMapVisible"
                 stripe
                 border
+                show-summary
                 height="95%"
                 style="width:100%">
             <el-table-column prop="productCode" label="產品編碼" width="120px"></el-table-column>
@@ -28,7 +28,7 @@
             <el-table-column prop="backSide" label="後側窗" width="120px"></el-table-column>
             <el-table-column prop="backFace" label="後擋" width="120px"></el-table-column>
             <el-table-column prop="skylight" label="天窗" width="120px"></el-table-column>
-            <el-table-column label="總計" width="100px"></el-table-column>
+            <el-table-column label="總計" width="140px"></el-table-column>
         </el-table>
     </div>
 </template>
@@ -39,7 +39,6 @@
         data(){
             return {
                 inputDealerCode:'',
-                productMapVisible:false,
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',

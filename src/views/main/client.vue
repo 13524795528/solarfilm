@@ -28,29 +28,9 @@
                         <el-input v-model="newClient.email"></el-input>
                     </el-form-item>
                     <el-form-item label="所在城市" prop="city">
+
                         <el-select v-model="newClient.city" placeholder="請選擇所在城市">
-                          <el-option label="台北市" value="Taipei"></el-option>
-                          <el-option label="新北市" value="Xinbei"></el-option>
-                          <el-option label="桃園市" value="Taoyuan"></el-option>
-                          <el-option label="台中市" value="Taizhong"></el-option>
-                          <el-option label="台南市" value="tainan"></el-option>
-                          <el-option label="高雄市" value="Gaoxiong"></el-option>
-                          <el-option label="基隆市" value="Jilong"></el-option>
-                          <el-option label="新竹市" value="Xinzhu"></el-option>
-                          <el-option label="嘉義市" value="Jiayi"></el-option>
-                            <el-option label="新竹縣" value="Xinzhuxian"></el-option>
-                          <el-option label="苗栗縣" value="Miaolixian"></el-option>
-                          <el-option label="彰化縣" value="Zhanghuaxian"></el-option>
-                          <el-option label="南投縣" value="Nantouxian"></el-option>
-                          <el-option label="雲林縣" value="Yunlinxian"></el-option>
-                          <el-option label="嘉義縣" value="Jiayixian"></el-option>
-                          <el-option label="屏東縣" value="Pingdongxian"></el-option>
-                          <el-option label="宜蘭縣" value="Yilanxian"></el-option>
-                          <el-option label="花蓮縣" value="Hualianxian"></el-option>
-                          <el-option label="臺東縣" value="Taidongxian"></el-option>
-                          <el-option label="澎湖縣" value="Penghuxian"></el-option>
-                          <el-option label="金門縣" value="Jinmenxian"></el-option>
-                          <el-option label="連江縣" value="Lianjiangxian"></el-option>
+                        <el-option v-for='item in cityList' :key="item" :label="item" :value="item"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="地址" prop="address">
@@ -171,10 +151,116 @@
             <el-table-column prop="Vin4" label="VIN碼後4位" width="100px"></el-table-column>
             <el-table-column prop="warrantyNum" label="保固卡號" width="100px"></el-table-column>
             <el-table-column label="操作" width="260px">
-                <el-button @click="showWarranty()">查看施工信息</el-button>
-                <el-button @click="deleteClient()">刪除</el-button>
+                <template slot-scope="scope">
+                <el-button size="mini" @click="showWarranty(scope.$index, scope.row)">查看施工信息</el-button>
+                <el-button size="mini" @click="deleteClient(scope.$index, scope.row)">刪除</el-button>
+                </template>
             </el-table-column>
         </el-table>
+        <el-dialog
+                title="施工信息" :visible.sync="warrantyVisible" width="70%" center>
+            <span>施工門店編號：</span> {{dealerCode}}
+            <br>
+            <span>車輛信息</span>
+            <el-table
+                    :data="vehicleData"
+                    style="width: 100%">
+                <el-table-column
+                        prop="owner"
+                        label="客戶姓名"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="gender"
+                        label="性別"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="phone"
+                        label="手機號"
+                        width="120">
+                </el-table-column>
+                <el-table-column
+                        prop="email"
+                        label="郵箱"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="city"
+                        label="所在城市"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="address"
+                        label="地址">
+                </el-table-column>
+                <el-table-column
+                        prop="brand"
+                        label="車輛品牌"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="vehicletype"
+                        label="車型"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="vehicleNum"
+                        label="車牌號碼"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="Vin4"
+                        label="VIN碼後4位"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="warrantyNum"
+                        label="保固卡號"
+                        width="120">
+                </el-table-column>
+            </el-table>
+            <span>施工信息</span>
+            <el-table :data="warrantyData">
+                <el-table-column
+                        prop="position"
+                        label="施工部位"
+                        width="120">
+                </el-table-column>
+                <el-table-column
+                        prop="productCode"
+                        label="產品編號"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="batchCode"
+                        label="生產批次號"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="boxCode"
+                        label="產品包裝盒號"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="warrantyTime"
+                        label="保固期"
+                        width="180">
+                </el-table-column>
+            </el-table>
+
+            <br/>
+            <el-table
+                    :data="warrantyDate">
+                <el-table-column
+                        prop="warrantyDate"
+                        label="施工日期"
+                        width="180">
+                </el-table-column>
+            </el-table>
+            <br><br>
+            <el-button @click="warrantyVisible = false">關閉頁面</el-button>
+        </el-dialog>
     </div>
 </template>
 
@@ -185,6 +271,7 @@
             return {
                 dealerCode:'Y0001',
                 newClientVisible:false,
+                warrantyVisible:false,
                 searchInput:{
                     inputName:'',
                     inputPhone:'',
@@ -308,6 +395,7 @@
                         { required: true, message: '請選擇施工日期', trigger: 'blur' }
                     ]
                 },
+                cityList:["台北市", "新北市","桃園市", "台中市","台南市", "高雄市", "基隆市","新竹市","嘉義市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣", "澎湖縣","金門縣","連江縣"],
                 vehicleBrandList:[
                 {label:'Alfa_Romeo 愛快_羅密歐',value:'AlfaRomeo'}, {label:'Aston_Martin 奧斯頓_馬丁',value:'AstonMartin'}, {label:'Audi 奧迪',value:'Audi'}, {label:'Acura 歐歌',value:'Acura'}, {label:'Austin 奧斯丁',value:'Austin'},
                 {label:'Bentley 賓利',value:'Bentley'}, {label:'BMW 寶馬',value:'BMW'}, {label:'Buick 別克',value:'Buick'}, {label:'Bugatti 布卡堤',value:'Bugatti'},
@@ -335,7 +423,54 @@
                     {
                         return time.getTime() > Date.now()
                     }
-                }
+                },
+                vehicleData:[{
+                    owner:'张三',
+                    gender:'male',
+                    phone:'0912341234',
+                    email:'aaa@123',
+                    city:'Taipei',
+                    address:'xxx',
+                    brand:'audi',
+                    vehicletype:'轎車',
+                    vehicleNum:'123aaa',
+                    Vin4:'1234',
+                    warrantyNum:'12341234'
+                }],
+                warrantyData:[{
+                    position:"前擋",
+                    productCode:'010203',
+                    batchCode:'1234',
+                    boxCode:'1212',
+                    warrantyTime:'4年'
+                },{
+                    position:"前側擋",
+                    productCode:'011213',
+                    batchCode:'1234',
+                    boxCode:'1224',
+                    warrantyTime:'3年'
+                },{
+                    position:"後側擋",
+                    productCode:'010203',
+                    batchCode:'1234',
+                    boxCode:'1212',
+                    warrantyTime:'1年'
+                },{
+                    position:"後擋",
+                    productCode:'010203',
+                    batchCode:'1234',
+                    boxCode:'1212',
+                    warrantyTime:'2年'
+                },{
+                    position:"天窗",
+                    productCode:'010203',
+                    batchCode:'1234',
+                    boxCode:'1212',
+                    warrantyTime:'5年'
+                }],
+                warrantyDate:[{
+                    warrantyDate:'2021-01-14'
+                }]
             }
         },
         mounted() {
@@ -353,7 +488,8 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         alert("提交新車輛信息");
-                        this.newClientVisible = false
+                        this.newClientVisible = false;
+                        alert("重新請求車輛信息");
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -366,6 +502,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
+                    alert('发请求删除客户！');
                     this.$message({
                         type: 'success',
                         message: '删除成功!'
@@ -377,8 +514,9 @@
                     });
                 });
             },
-            showWarranty(index){
-                alert('顯示該條施工信息，車牌號：'+ index)
+            showWarranty(index, row){
+                alert('顯示該客户施工信息，車牌號：'+ row.vehicleNum);
+                this.warrantyVisible = true
             }
         }
     }

@@ -34,28 +34,7 @@
             </el-form-item>
             <el-form-item label="所在城市" prop="city">
                 <el-select v-model="ruleForm.city" placeholder="請選擇所在城市">
-                    <el-option label="台北市" value="Taipei"></el-option>
-                    <el-option label="新北市" value="Xinbei"></el-option>
-                    <el-option label="桃園市" value="Taoyuan"></el-option>
-                    <el-option label="台中市" value="Taizhong"></el-option>
-                    <el-option label="台南市" value="tainan"></el-option>
-                    <el-option label="高雄市" value="Gaoxiong"></el-option>
-                    <el-option label="基隆市" value="Jilong"></el-option>
-                    <el-option label="新竹市" value="Xinzhu"></el-option>
-                    <el-option label="嘉義市" value="Jiayi"></el-option>
-                    <el-option label="新竹縣" value="Xinzhuxian"></el-option>
-                    <el-option label="苗栗縣" value="Miaolixian"></el-option>
-                    <el-option label="彰化縣" value="Zhanghuaxian"></el-option>
-                    <el-option label="南投縣" value="Nantouxian"></el-option>
-                    <el-option label="雲林縣" value="Yunlinxian"></el-option>
-                    <el-option label="嘉義縣" value="Jiayixian"></el-option>
-                    <el-option label="屏東縣" value="Pingdongxian"></el-option>
-                    <el-option label="宜蘭縣" value="Yilanxian"></el-option>
-                    <el-option label="花蓮縣" value="Hualianxian"></el-option>
-                    <el-option label="臺東縣" value="Taidongxian"></el-option>
-                    <el-option label="澎湖縣" value="Penghuxian"></el-option>
-                    <el-option label="金門縣" value="Jinmenxian"></el-option>
-                    <el-option label="連江縣" value="Lianjiangxian"></el-option>
+                    <el-option v-for='item in cityList' :key="item" :label="item" :value="item"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="地址" prop="address">
@@ -95,6 +74,7 @@
                     Vin4:'1234',
                     warrantyNum:'123123123'
                 }],
+                cityList:["台北市", "新北市","桃園市", "台中市","台南市", "高雄市", "基隆市","新竹市","嘉義市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣", "澎湖縣","金門縣","連江縣"],
                 vehicleBrandList:[
                     {label:'Alfa_Romeo 愛快_羅密歐',value:'AlfaRomeo'}, {label:'Aston_Martin 奧斯頓_馬丁',value:'AstonMartin'}, {label:'Audi 奧迪',value:'Audi'}, {label:'Acura 歐歌',value:'Acura'}, {label:'Austin 奧斯丁',value:'Austin'},
                     {label:'Bentley 賓利',value:'Bentley'}, {label:'BMW 寶馬',value:'BMW'}, {label:'Buick 別克',value:'Buick'}, {label:'Bugatti 布卡堤',value:'Bugatti'},
