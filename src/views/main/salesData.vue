@@ -11,11 +11,11 @@
         <el-divider/>
         <br>
         <el-table
-                :data="salesList"
+                :data="salesList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
                 show-summary
-                height="90%"
+                height="70%"
                 style="width:100%">
             <el-table-column prop="dealerName" label="施工店名稱" width="100px"></el-table-column>
             <el-table-column prop="dealerCode" label="門店編號" width="100px"></el-table-column>
@@ -33,6 +33,17 @@
             <el-table-column prop="Dec" label="十二月" width="75px"></el-table-column>
             <el-table-column label="總計" width="75px"></el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="salesList.length">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -43,10 +54,23 @@
             return {
                 valueYear: '',
                 inputDealer: '',
+                currentPage:1,
+                pageSize:10,
                 salesList:[]
             }
         },
+        mounted() {
+            alert('请求销售数据')
+        },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             submitQuery(){
                 alert('提交統計查詢');
             }

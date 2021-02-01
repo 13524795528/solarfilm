@@ -18,10 +18,10 @@
         <el-divider/>
         <br>
         <el-table
-                :data="clientList"
+                :data="clientList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
-                height="95%"
+                height="70%"
                 style="width:100%">
             <el-table-column prop="dealerName" label="施工店名稱" width="120px"></el-table-column>
             <el-table-column prop="dealerCode" label="門店編號" width="120px"></el-table-column>
@@ -36,6 +36,17 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="clientList.length">
+            </el-pagination>
+        </div>
         <el-dialog
                 title="施工信息" :visible.sync="warrantyVisible" width="70%" center>
             <span>施工門店編號：</span> {{dealerCode}}
@@ -152,6 +163,8 @@
                 warrantyVisible:false,
                 inputDealer:'',
                 radioVehicle:'normal',
+                currentPage:1,
+                pageSize:10,
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -240,6 +253,14 @@
             }
         },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             submitQuery(radioVehicle){
                 alert('查詢數據統計,類別：'+ radioVehicle)
             },

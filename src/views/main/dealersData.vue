@@ -65,10 +65,10 @@
         <br>
         <span>增加施工店</span>
         <el-table
-                :data="dealersList"
+                :data="dealersList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
-                height="90%"
+                height="70%"
                 style="width:100%">
             <el-table-column prop="dealerName" label="施工店名稱" width="100px"></el-table-column>
             <el-table-column prop="dealerCode" label="門店編碼" width="100px"></el-table-column>
@@ -86,6 +86,17 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="dealersList.length">
+            </el-pagination>
+        </div>
         <el-dialog
                 title="修改施工店信息" :visible.sync="modifyDealerVisible" width="75%" center>
             <span>施工店信息</span>
@@ -154,6 +165,8 @@
                 inputDealerCode:'',
                 newDealerVisible:false,
                 modifyDealerVisible:false,
+                currentPage:1,
+                pageSize:10,
                 dealersList:[
                     {dealerName:'taibei路傑',dealerCode:'Y0001',dealerRange:['taibei,taizhong'],city:'taibei',address:'1路5號',dealerType:'施工店',dealerPhone:'123123123',joinDate:'2019.01.02',endDate:'2029.01.01'},
                     {dealerName:'taibei路傑2',dealerCode:'Y0002',dealerRange:['tainan,taizhong'],city:'taibei2',address:'1路6號',dealerType:'施工店',dealerPhone:'123123124',joinDate:'2019.01.02',endDate:'2029.01.01'},
@@ -208,6 +221,14 @@
             alert('取施工店數據')
         },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             showAddDealer(){
                 this.oldDealerCode = '';
                 this.newDealerVisible = true

@@ -49,24 +49,24 @@ const routes = [
     component:dealerLogin
   },
   {  //首页
-    path:'/mainPage',
+    path:'/',
     name:'mainPage',
     component:mainPage,
     children: [
-      {path:'/main/client', name:'client',component:client},
-      {path:'/main/PDI', name:'PDI',component:PDI},
-      {path:'/main/dealerQuery', name:'dealerQuery',component:dealerQuery},
-      {path:'/main/clientModify', name:'clientModify',component:clientModify},
-      {path:'/main/salesData', name:'salesData',component:salesData},
-      {path:'/main/productMap', name:'productMap',component:productMap},
-      {path:'/main/productData', name:'productData',component:productData},
-      {path:'/main/dealersData', name:'dealersData',component:dealersData},
-      {path:'/main/userCtrl', name:'userCtrl',component:userCtrl},
+      {path:'/client', name:'client',component:client},
+      {path:'/PDI', name:'PDI',component:PDI},
+      {path:'/dealerQuery', name:'dealerQuery',component:dealerQuery},
+      {path:'/clientModify', name:'clientModify',component:clientModify},
+      {path:'/salesData', name:'salesData',component:salesData},
+      {path:'/productMap', name:'productMap',component:productMap},
+      {path:'/productData', name:'productData',component:productData},
+      {path:'/dealersData', name:'dealersData',component:dealersData},
+      {path:'/userCtrl', name:'userCtrl',component:userCtrl},
     ]
   },
   {  //重定向
     path:'/gomain',
-    redirect:'/mainPage'
+    redirect:'/'
   },
   {  //404页面
     path:'*',

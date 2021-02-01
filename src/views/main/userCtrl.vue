@@ -35,10 +35,10 @@
         <br>
         <span>用戶列表</span>
         <el-table
-                :data="userList"
+                :data="userList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
-                height="95%"
+                height="70%"
                 style="width:100%">
             <el-table-column prop="userName" label="用戶名" width="100px"></el-table-column>
             <el-table-column prop="userRole" label="角色" width="100px"></el-table-column>
@@ -51,6 +51,17 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="userList.length">
+            </el-pagination>
+        </div>
         <el-dialog
                 title="增加用戶" :visible.sync="modifyUserVisible" width="75%" center>
             <span>用戶信息</span>
@@ -89,6 +100,8 @@
                 inputUser:'',
                 newUserVisible:false,
                 modifyUserVisible:false,
+                currentPage:1,
+                pageSize:10,
                 userList:[
                     {userName:'aaa',userRole:'施工店',userDealer:'Y0001',userPhone:'123123123'},
                     {userName:'bbb',userRole:'施工店',userDealer:'Y0002',userPhone:'123123124'},
@@ -123,6 +136,14 @@
             alert('取用戶數據')
         },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             showNewUser(){
                 alert('取施工店名列表');
                 this.oldUserName = '';

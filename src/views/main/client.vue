@@ -5,7 +5,7 @@
         <el-input v-model="searchInput.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
         <el-button @click="submitQuery">查詢</el-button>
         <el-button @click="addNewClient">增加車輛信息</el-button>
-
+<!--增加车辆信息、施工信息弹出页面-->
         <el-dialog
             title="增加車輛信息" :visible.sync="newClientVisible" width="70%" center>
             <span>施工門店編號：</span> {{dealerCode}}
@@ -133,12 +133,14 @@
         <br>
         <el-divider/>
         <br>
+
         <el-table
-            :data="clientList"
+            :data="clientList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             stripe
             border
-            height="95%"
+            height="70%"
             style="width:100%">
+
             <el-table-column prop="owner" label="車主姓名" width="80px"></el-table-column>
             <el-table-column prop="gender" label="車主性別" width="60px"></el-table-column>
             <el-table-column prop="phone" label="手機號" width="100px"></el-table-column>
@@ -157,6 +159,19 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="clientList.length">
+            </el-pagination>
+        </div>
+
+<!--显示车辆的施工信息弹出页面-->
         <el-dialog
                 title="施工信息" :visible.sync="warrantyVisible" width="70%" center>
             <span>施工門店編號：</span> {{dealerCode}}
@@ -272,6 +287,8 @@
                 dealerCode:'Y0001',
                 newClientVisible:false,
                 warrantyVisible:false,
+                currentPage:1,
+                pageSize:10,
                 searchInput:{
                     inputName:'',
                     inputPhone:'',
@@ -477,6 +494,14 @@
             alert('取車輛數據')
         },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             submitQuery(){
                 alert('tijiao查詢')
             },

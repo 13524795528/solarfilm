@@ -16,11 +16,11 @@
         <el-divider/>
         <br>
         <el-table
-                :data="productMap"
+                :data="productMap.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
                 show-summary
-                height="95%"
+                height="70%"
                 style="width:100%">
             <el-table-column prop="productCode" label="產品編碼" width="120px"></el-table-column>
             <el-table-column prop="frontFace" label="前擋" width="120px"></el-table-column>
@@ -30,6 +30,17 @@
             <el-table-column prop="skylight" label="天窗" width="120px"></el-table-column>
             <el-table-column label="總計" width="140px"></el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="productMap.length">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -39,6 +50,8 @@
         data(){
             return {
                 inputDealerCode:'',
+                currentPage:1,
+                pageSize:10,
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -70,7 +83,18 @@
                 productMap:[]
             }
         },
+        mounted() {
+            alert('取产品统计数据')
+        },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             submitQuery(){
                 alert('提交查詢');
                 this.productMapVisible = true

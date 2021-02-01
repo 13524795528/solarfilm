@@ -46,10 +46,10 @@
         <br>
         <span>產品列表</span>
         <el-table
-                :data="productInfo"
+                :data="productInfo.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
-                height="95%"
+                height="70%"
                 style="width:100%">
             <el-table-column prop="productType" label="產品類別" width="100px"></el-table-column>
             <el-table-column prop="productSeries" label="產品系列" width="100px"></el-table-column>
@@ -67,6 +67,17 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[1,2,10, 20, 30, 40]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="productInfo.length">
+            </el-pagination>
+        </div>
         <el-dialog
                 title="修改產品信息" :visible.sync="modifyProductVisible" width="75%" center>
             <span>產品信息</span>
@@ -117,6 +128,8 @@
             return {
                 newProductVisible: false,
                 modifyProductVisible:false,
+                currentPage:1,
+                pageSize:10,
                 productInfo:[
                     {productType:'零售專用',productSeries:'MK',productCode:'MK70',productTransparent:'70',productUltraviolet:'99',productInfrared:'92',productHeat:'58',warrantyLimit:'5年',productRemark:''},
                     {productType:'零售專用',productSeries:'MK',productCode:'MK35',productTransparent:'37',productUltraviolet:'99',productInfrared:'96',productHeat:'75',warrantyLimit:'5年',productRemark:''},
@@ -173,6 +186,14 @@
             alert('取產品信息')
         },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             showAddProduct(){
                 this.oldProductCode = '';
                 this.newProductVisible = true

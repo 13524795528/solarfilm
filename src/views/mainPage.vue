@@ -28,19 +28,19 @@
                         align="left"
                         style="height:100%">
                     <br><br>
-                    <el-menu-item index="1" route="/main/client" >
+                    <el-menu-item index="1" route="/client" >
                         <i class="el-icon-user"></i>
                         <span slot="title">客戶資料錄入</span>
                     </el-menu-item>
-                    <el-menu-item index="2" route="/main/PDI" >
+                    <el-menu-item index="2" route="/PDI" >
                         <i class="el-icon-goods"></i>
                         <span slot="title">PDI車輛錄入</span>
                     </el-menu-item>
-                    <el-menu-item index="3" route="/main/dealerQuery" >
+                    <el-menu-item index="3" route="/dealerQuery" >
                         <i class="el-icon-search"></i>
                         <span slot="title">施工查詢統計</span>
                     </el-menu-item>
-                    <el-menu-item index="4" route="/main/clientModify" >
+                    <el-menu-item index="4" route="/clientModify" >
                         <i class="el-icon-edit"></i>
                         <span slot="title">客戶資料修改</span>
                     </el-menu-item>
@@ -49,18 +49,18 @@
                             <i class="el-icon-printer" ></i>
                             <span>數據統計</span>
                         </template>
-                            <el-menu-item index="5-1" route="/main/salesData">銷售數據統計</el-menu-item>
-                            <el-menu-item index="5-2" route="/main/productMap">產品安裝分佈</el-menu-item>
+                            <el-menu-item index="5-1" route="/salesData">銷售數據統計</el-menu-item>
+                            <el-menu-item index="5-2" route="/productMap">產品安裝分佈</el-menu-item>
                     </el-submenu>
-                    <el-menu-item index="6" route="/main/productData" >
+                    <el-menu-item index="6" route="/productData" >
                         <i class="el-icon-present"></i>
                         <span slot="title">產品信息</span>
                     </el-menu-item>
-                    <el-menu-item index="7" route="/main/dealersData" >
+                    <el-menu-item index="7" route="/dealersData" >
                         <i class="el-icon-shopping-bag-1"></i>
                         <span slot="title">施工店資料</span>
                     </el-menu-item>
-                    <el-menu-item index="8" route="/main/userCtrl" >
+                    <el-menu-item index="8" route="/userCtrl" >
                         <i class="el-icon-setting"></i>
                         <span slot="title">用戶管理</span>
                     </el-menu-item>
