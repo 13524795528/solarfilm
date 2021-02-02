@@ -11,8 +11,10 @@
                 end-placeholder="结束日期"
                 :picker-options="pickerOptions">
         </el-date-picker>
-        <el-radio v-model="radioVehicle" label="normal">普通車輛</el-radio>
-        <el-radio v-model="radioVehicle" label="PDI">PDI車輛</el-radio>
+        <el-checkbox-group v-model="radioVehicle">
+            <el-checkbox label="零售"></el-checkbox>
+            <el-checkbox label="PDI"></el-checkbox>
+        </el-checkbox-group>
         <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
         <br>
         <el-divider/>
@@ -151,6 +153,7 @@
             <br><br>
             <el-button icon="el-icon-switch-button" @click="warrantyVisible = false">關閉頁面</el-button>
         </el-dialog>
+        <el-button >导出资料</el-button>
     </div>
 </template>
 
@@ -162,7 +165,7 @@
                 dealerCode:'',
                 warrantyVisible:false,
                 inputDealer:'',
-                radioVehicle:'normal',
+                radioVehicle:['零售'],
                 currentPage:1,
                 pageSize:10,
                 pickerOptions: {

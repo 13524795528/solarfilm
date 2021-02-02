@@ -138,7 +138,7 @@
             :data="clientList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
             stripe
             border
-            height="70%"
+            height="60%"
             style="width:100%">
 
             <el-table-column prop="owner" label="車主姓名" width="80px"></el-table-column>
@@ -159,6 +159,7 @@
                 </template>
             </el-table-column>
         </el-table>
+
         <div class="block">
             <el-pagination
                     @size-change="handleSizeChange"
@@ -170,7 +171,7 @@
                     :total="clientList.length">
             </el-pagination>
         </div>
-
+        <el-button >导出资料</el-button>
 <!--显示车辆的施工信息弹出页面-->
         <el-dialog
                 title="施工信息" :visible.sync="warrantyVisible" width="70%" center>

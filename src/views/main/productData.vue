@@ -78,6 +78,7 @@
                     :total="productInfo.length">
             </el-pagination>
         </div>
+        <el-button >导出资料</el-button>
         <el-dialog
                 title="修改產品信息" :visible.sync="modifyProductVisible" width="75%" center>
             <span>產品信息</span>

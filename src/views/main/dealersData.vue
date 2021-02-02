@@ -97,6 +97,7 @@
                     :total="dealersList.length">
             </el-pagination>
         </div>
+        <el-button >导出资料</el-button>
         <el-dialog
                 title="修改施工店信息" :visible.sync="modifyDealerVisible" width="75%" center>
             <span>施工店信息</span>

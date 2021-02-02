@@ -34,6 +34,11 @@
                 }
             }
         },
+        created() {
+            this.axios.get(`http://solarfilm-test-api.themobiyun.com/solarfilm-server/mcl/constructionlog/total?t=1612153073060&page=1&limit=10`).then(res => {
+                console.log(res);
+            })
+        },
         methods:{
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {

@@ -135,7 +135,7 @@
                 :data="PDIList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 stripe
                 border
-                height="70%"
+                height="60%"
                 style="width:100%">
             <el-table-column prop="dealerCode" label="門店編號" width="200px"></el-table-column>
             <el-table-column prop="Vin4" label="VIN碼後4位" width="200px"></el-table-column>
@@ -262,6 +262,7 @@
             <br><br>
             <el-button icon="el-icon-switch-button" @click="warrantyVisible = false">關閉頁面</el-button>
         </el-dialog>
+        <el-button >导出资料</el-button>
     </div>
 </template>
 

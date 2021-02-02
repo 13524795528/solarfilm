@@ -11,6 +11,10 @@
                 end-placeholder="结束日期"
                 :picker-options="pickerOptions">
         </el-date-picker>
+        <el-checkbox-group v-model="radioVehicle">
+            <el-checkbox label="零售"></el-checkbox>
+            <el-checkbox label="PDI"></el-checkbox>
+        </el-checkbox-group>
         <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
         <br>
         <el-divider/>
@@ -41,6 +45,7 @@
                     :total="productMap.length">
             </el-pagination>
         </div>
+        <el-button >导出资料</el-button>
     </div>
 </template>
 
@@ -52,6 +57,7 @@
                 inputDealerCode:'',
                 currentPage:1,
                 pageSize:10,
+                radioVehicle:['零售'],
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',

@@ -127,6 +127,7 @@
             </el-table-column>
         </el-table>
         <br><br>
+        <el-button >保存PDF</el-button>
         <el-button icon="el-icon-switch-button" @click="turnback()">關閉頁面</el-button>
     </div>
 </template>
