@@ -1,8 +1,8 @@
 <template>
     <div class="subpage">
         <el-input v-model="inputDealerCode" aria-placeholder="請輸入門店編號"></el-input>
-        <el-button @click="submitQuery">查詢</el-button>
-        <el-button @click="showAddDealer">增加施工店</el-button>
+        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+        <el-button icon="el-icon-circle-plus-outline" @click="showAddDealer">增加施工店</el-button>
         <el-dialog
                 title="增加施工店" :visible.sync="newDealerVisible" width="75%" center>
             <span>施工店信息</span>
@@ -56,8 +56,8 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm('newDealer')">確定</el-button>
-                <el-button @click="newDealerVisible = false">取消</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="submitForm('newDealer')">確定</el-button>
+                <el-button icon="el-icon-close" @click="newDealerVisible = false">取消</el-button>
             </span>
         </el-dialog>
         <br>
@@ -81,8 +81,8 @@
             <el-table-column prop="endDate" label="合同截止日期" width="100px"></el-table-column>
             <el-table-column label="操作" width="260px">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="modifyDealer(scope.$index, scope.row)">修改</el-button>
-                    <el-button size="mini" @click="deleteDealer(scope.$index, scope.row)">刪除</el-button>
+                    <el-button size="mini" icon="el-icon-edit" @click="modifyDealer(scope.$index, scope.row)">修改</el-button>
+                    <el-button size="mini" icon="el-icon-delete" @click="deleteDealer(scope.$index, scope.row)">刪除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -150,8 +150,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm('modiDealer')">確定</el-button>
-                <el-button @click="modifyDealerVisible = false">取消</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="submitForm('modiDealer')">確定</el-button>
+                <el-button icon="el-icon-close" @click="modifyDealerVisible = false">取消</el-button>
             </div>
         </el-dialog>
     </div>

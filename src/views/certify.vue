@@ -8,7 +8,7 @@
             <el-form-item label="保固卡號" prop="worksheet">
                 <el-input v-model="ruleForm.worksheet"></el-input>
             </el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" >確認</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="submitForm('ruleForm')" >確認</el-button>
         </el-form>
     </div>
 </template>

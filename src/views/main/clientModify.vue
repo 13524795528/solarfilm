@@ -6,7 +6,7 @@
         <el-input v-model="warrantyNum" aria-placeholder="請輸入保固卡號"></el-input>
         <el-radio v-model="radioVehicle" label="normal">普通車輛</el-radio>
         <el-radio v-model="radioVehicle" label="PDI">PDI車輛</el-radio>
-        <el-button @click="submitQuery(radioVehicle)">查詢</el-button>
+        <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
 
         <br>
         <el-divider/>
@@ -130,8 +130,8 @@
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm('modifyClient')">確定</el-button>
-                <el-button @click="modifyVisible = false">取消</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="submitForm('modifyClient')">確定</el-button>
+                <el-button icon="el-icon-close" @click="modifyVisible = false">取消</el-button>
             </div>
         </el-dialog>
         <router-view/>

@@ -1,6 +1,6 @@
 <template>
     <div class="subpage">
-        <el-button @click="showAddProduct">增加產品</el-button>
+        <el-button icon="el-icon-circle-plus-outline" @click="showAddProduct">增加產品</el-button>
         <br>
         <el-dialog
                 title="增加產品" :visible.sync="newProductVisible" width="75%" center>
@@ -62,8 +62,8 @@
             <el-table-column prop="productRemark" label="備註" width="100px"></el-table-column>
             <el-table-column label="操作" width="260px">
                 <template slot-scope="scope">
-                <el-button size="mini" @click="modifyProduct(scope.$index, scope.row)">修改</el-button>
-                <el-button size="mini" @click="deleteProduct(scope.$index, scope.row)">刪除</el-button>
+                <el-button size="mini" icon="el-icon-edit" @click="modifyProduct(scope.$index, scope.row)">修改</el-button>
+                <el-button size="mini" icon="el-icon-delete"@click="deleteProduct(scope.$index, scope.row)">刪除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -114,8 +114,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm('modifyProduct')">確定</el-button>
-                <el-button @click="modifyProductVisible = false">取消</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="submitForm('modifyProduct')">確定</el-button>
+                <el-button icon="el-icon-close" @click="modifyProductVisible = false">取消</el-button>
             </div>
         </el-dialog>
     </div>

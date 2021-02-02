@@ -11,7 +11,7 @@
                 end-placeholder="结束日期"
                 :picker-options="pickerOptions">
         </el-date-picker>
-        <el-button @click="submitQuery">查詢</el-button>
+        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
         <br>
         <el-divider/>
         <br>

@@ -2,9 +2,9 @@
     <div class="subpage">
         <el-input v-model="inputQuery.inputWarranty" aria-placeholder="請輸入保固卡號"></el-input>
         <el-input v-model="inputQuery.inputVin4" aria-placeholder="請輸入VIN碼後4位"></el-input>
-        <el-button @click="submitQuery">查詢</el-button>
-        <el-button @click="submitPatch">批量導入</el-button>
-        <el-button @click="addNewPDI">手工增加</el-button>
+        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+        <el-button icon="el-icon-folder-add" @click="submitPatch">批量導入</el-button>
+        <el-button icon="el-icon-circle-plus-outline" @click="addNewPDI">手工增加</el-button>
         <el-dialog
                 title="增加PDI信息" :visible.sync="newPDIVisible" width="70%" center>
             <span>施工門店編號：</span> {{dealerCode}}
@@ -123,8 +123,8 @@
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm('newPDI')">確定</el-button>
-                <el-button @click="newPDIVisible = false">取消</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="submitForm('newPDI')">確定</el-button>
+                <el-button icon="el-icon-close" @click="newPDIVisible = false">取消</el-button>
             </div>
         </el-dialog>
         <br>
@@ -142,8 +142,8 @@
             <el-table-column prop="warrantyNum" label="保固卡號" width="200px"></el-table-column>
             <el-table-column label="操作" width="300px">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="showWarranty(scope.$index, scope.row)">查看施工信息</el-button>
-                    <el-button size="mini" @click="deleteClient(scope.$index, scope.row)">刪除</el-button>
+                    <el-button size="mini" icon="el-icon-search" @click="showWarranty(scope.$index, scope.row)">查看施工信息</el-button>
+                    <el-button size="mini" icon="el-icon-delete" @click="deleteClient(scope.$index, scope.row)">刪除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -260,7 +260,7 @@
                 </el-table-column>
             </el-table>
             <br><br>
-            <el-button @click="warrantyVisible = false">關閉頁面</el-button>
+            <el-button icon="el-icon-switch-button" @click="warrantyVisible = false">關閉頁面</el-button>
         </el-dialog>
     </div>
 </template>

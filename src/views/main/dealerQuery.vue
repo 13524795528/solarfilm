@@ -13,7 +13,7 @@
         </el-date-picker>
         <el-radio v-model="radioVehicle" label="normal">普通車輛</el-radio>
         <el-radio v-model="radioVehicle" label="PDI">PDI車輛</el-radio>
-        <el-button @click="submitQuery(radioVehicle)">查詢</el-button>
+        <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
         <br>
         <el-divider/>
         <br>
@@ -32,7 +32,7 @@
             <el-table-column prop="warrantyNum" label="保固卡號" width="120px"></el-table-column>
             <el-table-column label="操作" width="120px">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="showWarranty(scope.$index, scope.row)">查看詳情</el-button>
+                    <el-button size="mini" icon="el-icon-search" @click="showWarranty(scope.$index, scope.row)">查看詳情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -149,7 +149,7 @@
                 </el-table-column>
             </el-table>
             <br><br>
-            <el-button @click="warrantyVisible = false">關閉頁面</el-button>
+            <el-button icon="el-icon-switch-button" @click="warrantyVisible = false">關閉頁面</el-button>
         </el-dialog>
     </div>
 </template>

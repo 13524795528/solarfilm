@@ -18,7 +18,7 @@ import productMap from '../views/main/productMap'
 import productData from '../views/main/productData'
 import dealersData from '../views/main/dealersData'
 import userCtrl from '../views/main/userCtrl'
-
+import changePassword from '../views/main/changePassword'
 
 Vue.use(Router)
 
@@ -62,6 +62,7 @@ const routes = [
       {path:'/productData', name:'productData',component:productData},
       {path:'/dealersData', name:'dealersData',component:dealersData},
       {path:'/userCtrl', name:'userCtrl',component:userCtrl},
+      {path:'/changePassword', name:'changePassword',component:changePassword},
     ]
   },
   {  //重定向

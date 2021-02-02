@@ -3,8 +3,8 @@
         <el-input v-model="searchInput.inputName" aria-placeholder="請輸入車主姓名"></el-input>
         <el-input v-model="searchInput.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
         <el-input v-model="searchInput.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
-        <el-button @click="submitQuery">查詢</el-button>
-        <el-button @click="addNewClient">增加車輛信息</el-button>
+        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+        <el-button icon="el-icon-circle-plus-outline" @click="addNewClient">增加車輛信息</el-button>
 <!--增加车辆信息、施工信息弹出页面-->
         <el-dialog
             title="增加車輛信息" :visible.sync="newClientVisible" width="70%" center>
@@ -126,8 +126,8 @@
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="submitForm('newClient')">確定</el-button>
-                    <el-button @click="newClientVisible = false">取消</el-button>
+                    <el-button type="primary" icon="el-icon-check" @click="submitForm('newClient')">確定</el-button>
+                    <el-button icon="el-icon-close" @click="newClientVisible = false">取消</el-button>
             </div>
         </el-dialog>
         <br>
@@ -154,8 +154,8 @@
             <el-table-column prop="warrantyNum" label="保固卡號" width="100px"></el-table-column>
             <el-table-column label="操作" width="260px">
                 <template slot-scope="scope">
-                <el-button size="mini" @click="showWarranty(scope.$index, scope.row)">查看施工信息</el-button>
-                <el-button size="mini" @click="deleteClient(scope.$index, scope.row)">刪除</el-button>
+                <el-button size="mini" icon="el-icon-search" @click="showWarranty(scope.$index, scope.row)">查看施工信息</el-button>
+                <el-button size="mini" icon="el-icon-delete" @click="deleteClient(scope.$index, scope.row)">刪除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -274,7 +274,7 @@
                 </el-table-column>
             </el-table>
             <br><br>
-            <el-button @click="warrantyVisible = false">關閉頁面</el-button>
+            <el-button icon="el-icon-switch-button" @click="warrantyVisible = false">關閉頁面</el-button>
         </el-dialog>
     </div>
 </template>
@@ -330,7 +330,7 @@
                 },
                 rules: {
                     owner: [
-                        { required: true, message: '請輸入車主姓名', trigger: 'blur' },
+                        { required: false, message: '請輸入車主姓名', trigger: 'blur' },
                     ],
                     gender: [
                         { required: false, message: '請選擇車主性別', trigger: 'blur' },
