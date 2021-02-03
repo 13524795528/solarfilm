@@ -3,8 +3,7 @@ import Router from 'vue-router'
 
 import warranty from '../views/warranty'
 import certify from '../views/certify'
-import check from '../views/check'
-import dealerLogin from '../views/dealerLogin'
+import login from '../views/login'
 import mainPage from '../views/mainPage'
 import page404 from '../views/page404'
 
@@ -32,15 +31,10 @@ const routes = [
     name:'certify',
     component:certify
   },
-  {  //认证内容页
-    path:'/check',
-    name:'check',
-    component:check
-  },
   {  //施工店入口
-    path:'/dealerLogin',
-    name:'dealerLogin',
-    component:dealerLogin
+    path:'/login',
+    name:'login',
+    component:login
   },
   {  //首页
     path:'/',
@@ -58,10 +52,6 @@ const routes = [
       {path:'/userCtrl', name:'userCtrl',component:userCtrl},
       {path:'/changePassword', name:'changePassword',component:changePassword},
     ]
-  },
-  {  //重定向
-    path:'/gomain',
-    redirect:'/'
   },
   {  //404页面
     path:'*',

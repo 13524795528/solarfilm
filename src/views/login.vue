@@ -15,7 +15,7 @@
 
 <script>
     export default {
-        name: "dealers",
+        name: "login",
         data() {
             return {
                 ruleForm:{
