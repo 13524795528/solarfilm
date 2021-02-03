@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="checkForm">
         <p>請補充您的車輛信息使質保信息生效，以便更好地為您服務！</p>
         <el-table
                 :data="PDIData"
@@ -165,7 +165,7 @@
                         message: '提交成功!'
                     });
                     alert('發起提交請求');
-                    this.$router.push('/customlogin')
+                    this.$router.push('/customLogin')
                 }).catch(() => {});
             }
         }
@@ -173,9 +173,9 @@
 </script>
 
 <style scoped>
-    .check_Form {
-        width: 320px;
-        margin: 180px auto;
+    .checkForm {
+        width: 480px;
+        margin: 20px auto;
         border: 1px solid #dcdfe6;
         padding: 10px 20px 30px 15px;
         border-radius: 3px;

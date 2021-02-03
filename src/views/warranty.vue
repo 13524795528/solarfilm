@@ -1,5 +1,20 @@
 <template>
+    <div id="app">
     <div>
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="login_Form">
+            <h2>太陽膜質保查詢</h2>
+            <el-form-item label="手機號碼" prop="userphone">
+                <el-input v-model="ruleForm.userphone"></el-input>
+            </el-form-item>
+            <el-form-item label="車牌號碼" prop="vehicleNum">
+                <el-input v-model="ruleForm.vehicleNum"></el-input>
+            </el-form-item>
+            <el-button type="primary" icon="el-icon-search" @click="submitForm('ruleForm')" >確認查詢</el-button>
+        </el-form>
+    </div>
+        <el-dialog
+                title="太陽膜質保信息" :visible.sync="warrantyInfoVisible" width="90%" top="20px" center>
+    <div id="warranty">
         <span>施工門店信息</span>
         <el-table
                 :data="dealerData"
@@ -130,6 +145,8 @@
         <el-button >保存PDF</el-button>
         <el-button icon="el-icon-switch-button" @click="turnback()">關閉頁面</el-button>
     </div>
+        </el-dialog>
+    </div>
 </template>
 
 <script>
@@ -137,6 +154,20 @@
         name: "warranty",
         data() {
             return {
+                warrantyInfoVisible:false,
+                ruleForm:{
+                    userphone:"",
+                    vehicleNum:""
+                },
+                rules:{
+                    userphone:[
+                        {required:true, message:'請輸入您的手機號碼', trigger:'blur' },
+                        {min:10, max:10, message:'長度10位數字', trigger:'blur'}
+                    ],
+                    vehicleNum: [
+                        {required:true, message:'請輸入您的車牌號碼', trigger:'blur' },
+                    ]
+                },
                 dealerData: [{
                     dealer:'门店1',
                     dealerCode: 'M022-003-02',
@@ -195,8 +226,23 @@
         },
         methods:{
             turnback(){
-                this.$router.push('/customLogin')
+                this.warrantyInfoVisible = false;
             },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('请求校验，请求数据')
+                        this.warrantyInfoVisible = true;
+                        this.$refs[formName].resetFields();
+                    } else {
+                        this.$message({
+                            message: '未查詢到相關信息，請確保輸入的手機號碼或車牌號碼正確無誤！',
+                            type: 'warning'
+                        });
+                        return false
+                    }
+                })
+            }
             // getData(){
             //     this.axios({
             //         method:'get',
@@ -208,5 +254,20 @@
 </script>
 
 <style scoped>
-
+    #warranty{
+        width: 90%;
+        margin: 20px auto;
+        border: 1px solid #dcdfe6;
+        padding: 10px 20px 30px 15px;
+        border-radius: 3px;
+        box-shadow: 0 0 10px #DCDFE6;
+    }
+    .login_Form {
+        width: 320px;
+        margin: 180px auto;
+        border: 1px solid #DCDFE6;
+        padding: 10px 20px 30px 15px;
+        border-radius: 3px;
+        box-shadow: 0 0 10px #DCDFE6;
+    }
 </style>
