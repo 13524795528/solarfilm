@@ -1,9 +1,13 @@
 <template>
     <div class="subpage">
-        <el-button icon="el-icon-circle-plus-outline" @click="showAddProduct">增加產品</el-button>
-        <br>
+        <el-row>
+            <el-col :span="2" :offset="22">
+                <el-button icon="el-icon-circle-plus-outline" @click="showAddProduct">增加產品</el-button>
+            </el-col>
+        </el-row>
+
         <el-dialog
-                title="增加產品" :visible.sync="newProductVisible" width="75%" center>
+                title="增加產品" :visible.sync="newProductVisible" width="30%" center>
         <span>產品信息</span>
         <el-form ref="newProduct" :rules="rules" :model="newProduct" label-width="20%" class="check-ruleForm">
             <el-form-item label="產品類別" prop="productType">
@@ -67,22 +71,30 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[1,2,10, 20, 30, 40]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="productInfo.length">
-            </el-pagination>
-        </div>
-        <el-button >导出资料</el-button>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="6">
+                <el-button >导出產品资料</el-button>
+            </el-col>
+            <el-col :span="8">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="productInfo.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
         <el-dialog
-                title="修改產品信息" :visible.sync="modifyProductVisible" width="75%" center>
+                title="修改產品信息" :visible.sync="modifyProductVisible" width="30%" center>
             <span>產品信息</span>
-            <el-form ref="modifyProduct" :rules="rules" :model="modiProduct" label-width="20%" class="check-ruleForm">
+            <el-form ref="modiProduct" :rules="rules" :model="modiProduct" label-width="20%" class="check-ruleForm">
                 <el-form-item label="產品類別" prop="productType">
                     <el-select v-model="modiProduct.productType" placeholder="請選擇類別">
                         <el-option label="零售專用" value="retail"></el-option>
@@ -115,8 +127,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" icon="el-icon-check" @click="submitForm('modifyProduct')">確定</el-button>
-                <el-button icon="el-icon-close" @click="modifyProductVisible = false">取消</el-button>
+                <el-button type="primary" @click="submitForm('modiProduct')">確定</el-button>
+                <el-button @click="modifyProductVisible = false">取消</el-button>
             </div>
         </el-dialog>
     </div>

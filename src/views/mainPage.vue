@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <el-container style="height:100%">
-            <el-header style="text-align: right; font-size: 12px">
+            <el-header style="text-align: right">
                 <el-dropdown @command="dropdownCommand">
                     <span class="el-dropdown-link"><i class="el-icon-user-solid" style="margin-right: 15px"></i>
                     {{$store.getters.getUser.usercode}}

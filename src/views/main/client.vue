@@ -1,10 +1,31 @@
 <template>
     <div class="subpage">
-        <el-input v-model="searchInput.inputName" aria-placeholder="請輸入車主姓名"></el-input>
-        <el-input v-model="searchInput.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
-        <el-input v-model="searchInput.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
-        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
-        <el-button icon="el-icon-circle-plus-outline" @click="addNewClient">增加車輛信息</el-button>
+        <el-row>
+            <el-col :span="2">
+                <span>車主姓名</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="searchInput.inputName" aria-placeholder="請輸入車主姓名"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>手機號碼</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="searchInput.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>車牌號碼</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="searchInput.inputNum" aria-placeholder="請輸入車牌號碼"></el-input></el-col>
+            <el-col :span="3">
+                <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+            </el-col>
+            <el-col :span="3" :offset="3">
+                <el-button icon="el-icon-circle-plus-outline" @click="addNewClient">增加車輛信息</el-button>
+            </el-col>
+        </el-row>
+
 <!--增加车辆信息、施工信息弹出页面-->
         <el-dialog
             title="增加車輛信息" :visible.sync="newClientVisible" width="70%" center>
@@ -12,125 +33,212 @@
             <br>
             <span>車輛信息</span>
                 <el-form ref="newClient" :rules="rules" :model="newClient" label-width="20%" class="check-ruleForm">
-                    <el-form-item label="車主姓名" prop="owner">
-                        <el-input v-model="newClient.owner"></el-input>
-                    </el-form-item>
-                    <el-form-item label="車主性別" prop="gender">
-                        <el-select v-model="newClient.gender" placeholder="請選擇車主性別">
-                            <el-option label="男" value="male"></el-option>
-                            <el-option label="女" value="female"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="手機號" prop="phone">
-                        <el-input v-model="newClient.phone"></el-input>
-                    </el-form-item>
-                    <el-form-item label="郵箱" prop="email">
-                        <el-input v-model="newClient.email"></el-input>
-                    </el-form-item>
-                    <el-form-item label="所在城市" prop="city">
+                    <el-row>
+                        <el-col :span="7">
+                            <el-form-item label="車主姓名" prop="owner">
+                                <el-input v-model="newClient.owner"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item label="性別" prop="gender">
+                                <el-select v-model="newClient.gender" placeholder="請選擇車主性別">
+                                    <el-option label="男" value="male"></el-option>
+                                    <el-option label="女" value="female"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-form-item label="手機號" prop="phone">
+                                <el-input v-model="newClient.phone"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="5">
+                            <el-form-item label="郵箱" prop="email">
+                                <el-input v-model="newClient.email"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="7">
+                            <el-form-item label="所在城市" prop="city">
+                                <el-select v-model="newClient.city" placeholder="請選擇所在城市">
+                                    <el-option v-for='item in cityList' :key="item" :label="item" :value="item"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-form-item label="地址" prop="address">
+                                <el-input v-model="newClient.address"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="5">
+                            <el-form-item label="車輛品牌" prop="brand">
+                                <el-select v-model="newClient.brand" placeholder="請選擇車輛品牌">
+                                    <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.label"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item label="車型" prop="vehicleType">
+                                <el-select v-model="newClient.vehicleType" placeholder="請選擇車型">
+                                    <el-option label="轎車" value="car"></el-option>
+                                    <el-option label="休旅車" value="RV"></el-option>
+                                    <el-option label="皮卡車" value="Pickup"></el-option>
+                                    <el-option label="貨車" value="lorry"></el-option>
+                                    <el-option label="其他" value="other"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="5">
+                            <el-form-item label="車牌號碼" prop="vehicleNum">
+                                <el-input v-model="newClient.vehicleNum"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="5">
+                            <el-form-item label="VIN碼後4位" prop="Vin4">
+                                <el-input v-model="newClient.Vin4"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="5">
+                            <el-form-item label="保固卡號" prop="warrantyNum">
+                                <el-input v-model="newClient.warrantyNum"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
 
-                        <el-select v-model="newClient.city" placeholder="請選擇所在城市">
-                        <el-option v-for='item in cityList' :key="item" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="地址" prop="address">
-                        <el-input v-model="newClient.address"></el-input>
-                    </el-form-item>
-                    <el-form-item label="車輛品牌" prop="brand">
-                        <el-select v-model="newClient.brand" placeholder="請選擇車輛品牌">
-                            <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.label"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="車型" prop="vehicleType">
-                        <el-select v-model="newClient.vehicleType" placeholder="請選擇車型">
-                            <el-option label="轎車" value="car"></el-option>
-                            <el-option label="休旅車" value="RV"></el-option>
-                            <el-option label="皮卡車" value="Pickup"></el-option>
-                            <el-option label="貨車" value="lorry"></el-option>
-                            <el-option label="其他" value="other"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="車牌號碼" prop="vehicleNum">
-                        <el-input v-model="newClient.vehicleNum"></el-input>
-                    </el-form-item>
-                    <el-form-item label="VIN碼後4位" prop="Vin4">
-                        <el-input v-model="newClient.Vin4"></el-input>
-                    </el-form-item>
-                    <el-form-item label="保固卡號" prop="warrantyNum">
-                        <el-input v-model="newClient.warrantyNum"></el-input>
-                    </el-form-item>
-            <span>施工信息</span>
-                    <el-form-item label="前擋產品編碼" prop="frontFaceProductCode">
-                        <el-select v-model="newClient.frontFaceProductCode" placeholder="請選擇產品編碼">
-                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="前擋卷號" prop="frontFaceBatchCode">
-                        <el-input v-model="newClient.frontFaceBatchCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="前擋包裝盒號" prop="frontFaceBoxCode">
-                        <el-input v-model="newClient.frontFaceBoxCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="前側產品編碼" prop="frontSideProductCode">
-                        <el-select v-model="newClient.frontSideProductCode" placeholder="請選擇產品編碼">
-                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="前側卷號" prop="frontSideBatchCode">
-                        <el-input v-model="newClient.frontSideBatchCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="前側包裝盒號" prop="frontSideBoxCode">
-                        <el-input v-model="newClient.frontSideBoxCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="後側產品編碼" prop="backSideProductCode">
-                        <el-select v-model="newClient.backSideProductCode" placeholder="請選擇產品編碼">
-                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="後側卷號" prop="backSideBatchCode">
-                        <el-input v-model="newClient.backSideBatchCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="後側包裝盒號" prop="backSideBoxCode">
-                        <el-input v-model="newClient.backSideBoxCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="後擋產品編碼" prop="backFaceProductCode">
-                        <el-select v-model="newClient.backFaceProductCode" placeholder="請選擇產品編碼">
-                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="後擋卷號" prop="backFaceBatchCode">
-                        <el-input v-model="newClient.backFaceBatchCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="後擋包裝盒號" prop="backFaceBoxCode">
-                        <el-input v-model="newClient.backFaceBoxCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="天窗產品編碼" prop="skylightProductCode">
-                        <el-select v-model="newClient.skylightProductCode" placeholder="請選擇產品編碼">
-                            <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="天窗卷號" prop="skylightBatchCode">
-                        <el-input v-model="newClient.skylightBatchCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="天窗包裝盒號" prop="skylightBoxCode">
-                        <el-input v-model="newClient.skylightBoxCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="施工日期" prop="warrantyDate">
-                        <el-date-picker
-                                v-model="newClient.warrantyDate"
-                                type="date"
-                                placeholder="选择日期"
-                                :picker-options="pickerOptions">
-                        </el-date-picker>
-                    </el-form-item>
-
+                    <span>施工信息</span>
+                    <el-row>
+                        <el-col :span="2">
+                            <span>前擋</span>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="產品編碼" prop="frontFaceProductCode">
+                                <el-select v-model="newClient.frontFaceProductCode" placeholder="請選擇產品編碼">
+                                    <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="卷號" prop="frontFaceBatchCode">
+                                <el-input v-model="newClient.frontFaceBatchCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="包裝盒號" prop="frontFaceBoxCode">
+                                <el-input v-model="newClient.frontFaceBoxCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="2">
+                            <span>前側</span>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="產品編碼" prop="frontSideProductCode">
+                                <el-select v-model="newClient.frontSideProductCode" placeholder="請選擇產品編碼">
+                                    <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="卷號" prop="frontSideBatchCode">
+                                <el-input v-model="newClient.frontSideBatchCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="包裝盒號" prop="frontSideBoxCode">
+                                <el-input v-model="newClient.frontSideBoxCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="2">
+                            <span>後側</span>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="產品編碼" prop="backSideProductCode">
+                                <el-select v-model="newClient.backSideProductCode" placeholder="請選擇產品編碼">
+                                    <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="卷號" prop="backSideBatchCode">
+                                <el-input v-model="newClient.backSideBatchCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="包裝盒號" prop="backSideBoxCode">
+                                <el-input v-model="newClient.backSideBoxCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="2">
+                            <span>後擋</span>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="產品編碼" prop="backFaceProductCode">
+                                <el-select v-model="newClient.backFaceProductCode" placeholder="請選擇產品編碼">
+                                    <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="卷號" prop="backFaceBatchCode">
+                                <el-input v-model="newClient.backFaceBatchCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="包裝盒號" prop="backFaceBoxCode">
+                                <el-input v-model="newClient.backFaceBoxCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="2">
+                            <span>天窗</span>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="產品編碼" prop="skylightProductCode">
+                                <el-select v-model="newClient.skylightProductCode" placeholder="請選擇產品編碼">
+                                    <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="卷號" prop="skylightBatchCode">
+                                <el-input v-model="newClient.skylightBatchCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item label="包裝盒號" prop="skylightBoxCode">
+                                <el-input v-model="newClient.skylightBoxCode"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-divider/>
+                    <el-row>
+                        <el-col :span="7" :offset="2">
+                            <el-form-item label="施工日期" prop="warrantyDate">
+                                <el-date-picker
+                                        v-model="newClient.warrantyDate"
+                                        type="date"
+                                        placeholder="选择日期"
+                                        :picker-options="pickerOptions">
+                                </el-date-picker>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
             </el-form>
             <div slot="footer" class="dialog-footer">
                     <el-button type="primary" icon="el-icon-check" @click="submitForm('newClient')">確定</el-button>
                     <el-button icon="el-icon-close" @click="newClientVisible = false">取消</el-button>
             </div>
         </el-dialog>
-        <br>
+
         <el-divider/>
         <br>
 
@@ -159,19 +267,27 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="6">
+                <el-button >导出客戶资料</el-button>
+            </el-col>
+            <el-col :span="8">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="clientList.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
 
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[1,2,10, 20, 30, 40]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="clientList.length">
-            </el-pagination>
-        </div>
-        <el-button >导出资料</el-button>
 <!--显示车辆的施工信息弹出页面-->
         <el-dialog
                 title="施工信息" :visible.sync="warrantyVisible" width="70%" center>

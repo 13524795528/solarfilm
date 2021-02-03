@@ -1,133 +1,280 @@
 <template>
     <div class="subpage">
-        <el-input v-model="searchInput1.inputName" aria-placeholder="請輸入車主姓名"></el-input>
-        <el-input v-model="searchInput1.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
-        <el-input v-model="searchInput1.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
-        <el-input v-model="warrantyNum" aria-placeholder="請輸入保固卡號"></el-input>
-        <el-radio v-model="radioVehicle" label="normal">普通車輛</el-radio>
-        <el-radio v-model="radioVehicle" label="PDI">PDI車輛</el-radio>
-        <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
+        <el-row>
+            <el-col :span="2">
+                <span>車主姓名</span>
+            </el-col>
+            <el-col :span="2">
+                <el-input v-model="searchInput1.inputName" aria-placeholder="請輸入車主姓名"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>手機號碼</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="searchInput1.inputPhone" aria-placeholder="請輸入車主手機號碼"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>車牌號碼</span>
+            </el-col>
+            <el-col :span="2">
+                <el-input v-model="searchInput1.inputNum" aria-placeholder="請輸入車牌號碼"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>保固卡號</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="warrantyNum" aria-placeholder="請輸入保固卡號"></el-input>
+            </el-col>
+            <el-col :span="3">
+                <el-radio v-model="radioVehicle" label="normal">零售</el-radio>
+                <el-radio v-model="radioVehicle" label="PDI">PDI車輛</el-radio>
+            </el-col>
+            <el-col :span="2">
+                <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
+            </el-col>
+        </el-row>
 
-        <br>
         <el-divider/>
         <br>
+        <el-table
+                :data="clientList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                stripe
+                border
+                height="60%"
+                style="width:100%">
+            <el-table-column prop="dealerName" label="施工店名稱" width="120px"></el-table-column>
+            <el-table-column prop="dealerCode" label="門店編號" width="120px"></el-table-column>
+            <el-table-column prop="owner" label="車主姓名" width="120px"></el-table-column>
+            <el-table-column prop="phone" label="手機號" width="120px"></el-table-column>
+            <el-table-column prop="vehicleNum" label="車牌號" width="120px"></el-table-column>
+            <el-table-column prop="Vin4" label="VIN碼後4位" width="120px"></el-table-column>
+            <el-table-column prop="warrantyNum" label="保固卡號" width="120px"></el-table-column>
+            <el-table-column label="操作" width="120px">
+                <template slot-scope="scope">
+                    <el-button size="mini" icon="el-icon-edit" @click="modiClient(scope.$index, scope.row)">修改</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-row>
+            <el-col :span="8" :offset="16">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="clientList.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
         <el-dialog
                 title="修改客戶信息" :visible.sync="modifyVisible" width="70%" center>
             <span>施工門店編號：</span> {{dealerCode}}
             <br>
             <span>車輛信息</span>
             <el-form ref="modifyClient" :rules="rules" :model="modifyClient" label-width="20%" class="check-ruleForm">
-                <el-form-item label="車主姓名" prop="owner">
-                    <el-input v-model="modifyClient.owner"></el-input>
-                </el-form-item>
-                <el-form-item label="車主性別" prop="gender">
-                    <el-select v-model="modifyClient.gender" placeholder="請選擇車主性別">
-                        <el-option label="男" value="male"></el-option>
-                        <el-option label="女" value="female"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="手機號" prop="phone">
-                    <el-input v-model="modifyClient.phone"></el-input>
-                </el-form-item>
-                <el-form-item label="郵箱" prop="email">
-                    <el-input v-model="modifyClient.email"></el-input>
-                </el-form-item>
-                <el-form-item label="所在城市" prop="city">
-                    <el-select v-model="modifyClient.city" placeholder="請選擇所在城市">
-                        <el-option v-for='item in cityList' :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="地址" prop="address">
-                    <el-input v-model="modifyClient.address"></el-input>
-                </el-form-item>
-                <el-form-item label="車輛品牌" prop="brand">
-                    <el-select v-model="modifyClient.brand" placeholder="請選擇車輛品牌">
-                        <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.label"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="車型" prop="vehicleType">
-                    <el-select v-model="modifyClient.vehicleType" placeholder="請選擇車型">
-                        <el-option label="轎車" value="car"></el-option>
-                        <el-option label="休旅車" value="RV"></el-option>
-                        <el-option label="皮卡車" value="Pickup"></el-option>
-                        <el-option label="貨車" value="lorry"></el-option>
-                        <el-option label="其他" value="other"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="車牌號碼" prop="vehicleNum">
-                    <el-input v-model="modifyClient.vehicleNum"></el-input>
-                </el-form-item>
-                <el-form-item label="VIN碼後4位" prop="Vin4">
-                    <el-input v-model="modifyClient.Vin4"></el-input>
-                </el-form-item>
-                <el-form-item label="保固卡號" prop="warrantyNum">
-                    <el-input v-model="modifyClient.warrantyNum"></el-input>
-                </el-form-item>
-                <span>施工信息</span>
-                <el-form-item label="前擋產品編碼" prop="frontFaceProductCode">
-                    <el-select v-model="modifyClient.frontFaceProductCode" placeholder="請選擇產品編碼">
-                        <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="前擋卷號" prop="frontFaceBatchCode">
-                    <el-input v-model="modifyClient.frontFaceBatchCode"></el-input>
-                </el-form-item>
-                <el-form-item label="前擋包裝盒號" prop="frontFaceBoxCode">
-                    <el-input v-model="modifyClient.frontFaceBoxCode"></el-input>
-                </el-form-item>
-                <el-form-item label="前側產品編碼" prop="frontSideProductCode">
-                    <el-select v-model="modifyClient.frontSideProductCode" placeholder="請選擇產品編碼">
-                        <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="前側卷號" prop="frontSideBatchCode">
-                    <el-input v-model="modifyClient.frontSideBatchCode"></el-input>
-                </el-form-item>
-                <el-form-item label="前側包裝盒號" prop="frontSideBoxCode">
-                    <el-input v-model="modifyClient.frontSideBoxCode"></el-input>
-                </el-form-item>
-                <el-form-item label="後側產品編碼" prop="backSideProductCode">
-                    <el-select v-model="modifyClient.backSideProductCode" placeholder="請選擇產品編碼">
-                        <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="後側卷號" prop="backSideBatchCode">
-                    <el-input v-model="modifyClient.backSideBatchCode"></el-input>
-                </el-form-item>
-                <el-form-item label="後側包裝盒號" prop="backSideBoxCode">
-                    <el-input v-model="modifyClient.backSideBoxCode"></el-input>
-                </el-form-item>
-                <el-form-item label="後擋產品編碼" prop="backFaceProductCode">
-                    <el-select v-model="modifyClient.backFaceProductCode" placeholder="請選擇產品編碼">
-                        <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="後擋卷號" prop="backFaceBatchCode">
-                    <el-input v-model="modifyClient.backFaceBatchCode"></el-input>
-                </el-form-item>
-                <el-form-item label="後擋包裝盒號" prop="backFaceBoxCode">
-                    <el-input v-model="modifyClient.backFaceBoxCode"></el-input>
-                </el-form-item>
-                <el-form-item label="天窗產品編碼" prop="skylightProductCode">
-                    <el-select v-model="modifyClient.skylightProductCode" placeholder="請選擇產品編碼">
-                        <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="天窗卷號" prop="skylightBatchCode">
-                    <el-input v-model="modifyClient.skylightBatchCode"></el-input>
-                </el-form-item>
-                <el-form-item label="天窗包裝盒號" prop="skylightBoxCode">
-                    <el-input v-model="modifyClient.skylightBoxCode"></el-input>
-                </el-form-item>
-                <el-form-item label="施工日期" prop="warrantyDate">
-                    <el-date-picker
-                            v-model="modifyClient.warrantyDate"
-                            type="date"
-                            placeholder="选择日期"
-                            :picker-options="pickerOptions">
-                    </el-date-picker>
-                </el-form-item>
+                <el-row>
+                    <el-col :span="7">
+                        <el-form-item label="車主姓名" prop="owner">
+                            <el-input v-model="modifyClient.owner"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="4">
+                        <el-form-item label="性別" prop="gender">
+                            <el-select v-model="modifyClient.gender" placeholder="請選擇車主性別">
+                                <el-option label="男" value="male"></el-option>
+                                <el-option label="女" value="female"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="手機號" prop="phone">
+                            <el-input v-model="modifyClient.phone"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-form-item label="郵箱" prop="email">
+                            <el-input v-model="modifyClient.email"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="7">
+                        <el-form-item label="所在城市" prop="city">
+                            <el-select v-model="modifyClient.city" placeholder="請選擇所在城市">
+                                <el-option v-for='item in cityList' :key="item" :label="item" :value="item"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="地址" prop="address">
+                            <el-input v-model="modifyClient.address"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="5">
+                        <el-form-item label="車輛品牌" prop="brand">
+                            <el-select v-model="modifyClient.brand" placeholder="請選擇車輛品牌">
+                                <el-option v-for='item in vehicleBrandList' :key="item.value" :label="item.lable" :value="item.label"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="4">
+                        <el-form-item label="車型" prop="vehicleType">
+                            <el-select v-model="modifyClient.vehicleType" placeholder="請選擇車型">
+                                <el-option label="轎車" value="car"></el-option>
+                                <el-option label="休旅車" value="RV"></el-option>
+                                <el-option label="皮卡車" value="Pickup"></el-option>
+                                <el-option label="貨車" value="lorry"></el-option>
+                                <el-option label="其他" value="other"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-form-item label="車牌號碼" prop="vehicleNum">
+                            <el-input v-model="modifyClient.vehicleNum"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-form-item label="VIN碼後4位" prop="Vin4">
+                            <el-input v-model="modifyClient.Vin4"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-form-item label="保固卡號" prop="warrantyNum">
+                            <el-input v-model="modifyClient.warrantyNum"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
+                <span>施工信息</span>
+                <el-row>
+                    <el-col :span="2">
+                        <span>前擋</span>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="產品編碼" prop="frontFaceProductCode">
+                            <el-select v-model="modifyClient.frontFaceProductCode" placeholder="請選擇產品編碼">
+                                <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="卷號" prop="frontFaceBatchCode">
+                            <el-input v-model="modifyClient.frontFaceBatchCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="包裝盒號" prop="frontFaceBoxCode">
+                            <el-input v-model="modifyClient.frontFaceBoxCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="2">
+                        <span>前側</span>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="產品編碼" prop="frontSideProductCode">
+                            <el-select v-model="modifyClient.frontSideProductCode" placeholder="請選擇產品編碼">
+                                <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="卷號" prop="frontSideBatchCode">
+                            <el-input v-model="modifyClient.frontSideBatchCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="包裝盒號" prop="frontSideBoxCode">
+                            <el-input v-model="modifyClient.frontSideBoxCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="2">
+                        <span>後側</span>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="產品編碼" prop="backSideProductCode">
+                            <el-select v-model="modifyClient.backSideProductCode" placeholder="請選擇產品編碼">
+                                <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="卷號" prop="backSideBatchCode">
+                            <el-input v-model="modifyClient.backSideBatchCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="包裝盒號" prop="backSideBoxCode">
+                            <el-input v-model="modifyClient.backSideBoxCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="2">
+                        <span>後擋</span>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="產品編碼" prop="backFaceProductCode">
+                            <el-select v-model="modifyClient.backFaceProductCode" placeholder="請選擇產品編碼">
+                                <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="卷號" prop="backFaceBatchCode">
+                            <el-input v-model="modifyClient.backFaceBatchCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="包裝盒號" prop="backFaceBoxCode">
+                            <el-input v-model="modifyClient.backFaceBoxCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="2">
+                        <span>天窗</span>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="產品編碼" prop="skylightProductCode">
+                            <el-select v-model="modifyClient.skylightProductCode" placeholder="請選擇產品編碼">
+                                <el-option v-for="item in productList" :key="item" :label="item" :value="item"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="卷號" prop="skylightBatchCode">
+                            <el-input v-model="modifyClient.skylightBatchCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-form-item label="包裝盒號" prop="skylightBoxCode">
+                            <el-input v-model="modifyClient.skylightBoxCode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-divider/>
+                <el-row>
+                    <el-col :span="7" :offset="2">
+                        <el-form-item label="施工日期" prop="warrantyDate">
+                            <el-date-picker
+                                    v-model="modifyClient.warrantyDate"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    :picker-options="pickerOptions">
+                            </el-date-picker>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" icon="el-icon-check" @click="submitForm('modifyClient')">確定</el-button>
@@ -146,12 +293,22 @@
                 modifyVisible:false,
                 dealerCode:'',
                 radioVehicle:'normal',
+                currentPage:1,
+                pageSize:10,
                 searchInput1:{
                     inputName:'',
                     inputPhone:'',
                     inputNum:''
                 },
                 warrantyNum:'',
+                clientList:[{
+                    dealerCode: '',
+                    owner: '123',
+                    phone:'1231231231',
+                    vehicleNum: '123',
+                    Vin4:'1233',
+                    warrantyNum:'132',
+                }],
                 modifyClient: {
                     owner: '123',
                     gender: '',
@@ -297,13 +454,23 @@
             }
         },
         methods:{
+            handleSizeChange(val){
+                console.log(`每頁${val}條`);
+                this.pageSize = val;
+            },
+            handleCurrentChange(val){
+                console.log(`當前頁：${val}`);
+                this.currentPage = val;
+            },
             submitQuery(radioVehicle){
                 alert('提交查詢,類別:'+radioVehicle)
-                this.modifyVisible = true
             },
             submitForm(modifyClient){
                 alert('提交數據,需後台根據類型較驗必選字段');
                 this.modifyVisible = false
+            },
+            modiClient(index,row){
+                this.modifyVisible = true
             }
         }
     }

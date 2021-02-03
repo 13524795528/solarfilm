@@ -1,17 +1,33 @@
 <template>
     <div class="subpage">
-        <el-input v-model="inputDealer" aria-placeholder="請輸入施工門店編號">請輸入門店編號</el-input>
-        <el-date-picker
-                v-model="valueYear"
-                type="year"
-                placeholder="選擇年份">
-        </el-date-picker>
-        <el-checkbox-group v-model="radioVehicle">
-            <el-checkbox label="零售"></el-checkbox>
-            <el-checkbox label="PDI"></el-checkbox>
-        </el-checkbox-group>
-        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
-        <br>
+        <el-row>
+            <el-col :span="2">
+                <span>門店編號</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="inputDealer" aria-placeholder="請輸入施工門店編號">請輸入門店編號</el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>年度</span>
+            </el-col>
+            <el-col :span="3">
+                <el-date-picker
+                        v-model="valueYear"
+                        type="year"
+                        placeholder="選擇年份">
+                </el-date-picker>
+            </el-col>
+            <el-col :span="3">
+                <el-checkbox-group v-model="radioVehicle">
+                    <el-checkbox label="零售"></el-checkbox>
+                    <el-checkbox label="PDI"></el-checkbox>
+                </el-checkbox-group>
+            </el-col>
+            <el-col :span="2">
+                <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+            </el-col>
+        </el-row>
+
         <el-divider/>
         <br>
         <el-table
@@ -37,18 +53,27 @@
             <el-table-column prop="Dec" label="十二月" width="75px"></el-table-column>
             <el-table-column label="總計" width="75px"></el-table-column>
         </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[1,2,10, 20, 30, 40]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="salesList.length">
-            </el-pagination>
-        </div>
-        <el-button >导出资料</el-button>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="6">
+                <el-button >导出統計結果</el-button>
+            </el-col>
+            <el-col :span="8">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="salesList.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
+
     </div>
 </template>
 

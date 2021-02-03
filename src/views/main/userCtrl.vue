@@ -1,10 +1,22 @@
 <template>
     <div class="subpage">
-        <el-input v-model="inputUser" aria-placeholder="請輸入用戶名"></el-input>
-        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
-        <el-button icon="el-icon-circle-plus-outline" @click="showNewUser">增加用戶</el-button>
+        <el-row>
+            <el-col :span="2">
+                <span>用戶名</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="inputUser" aria-placeholder="請輸入用戶名"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+            </el-col>
+            <el-col :span="2" :offset="15">
+                <el-button icon="el-icon-circle-plus-outline" @click="showNewUser">增加用戶</el-button>
+            </el-col>
+        </el-row>
+
         <el-dialog
-                title="增加用戶" :visible.sync="newUserVisible" width="75%" center>
+                title="增加用戶" :visible.sync="newUserVisible" width="24%" center>
             <span>用戶信息</span>
             <el-form ref="newUser" :rules="rules" :model="newUser" label-width="20%" class="check-ruleForm">
                 <el-form-item label="用戶名" prop="userName">
@@ -22,7 +34,7 @@
                         <el-option label="管理員" value="管理員"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="所屬施工店" prop="userDealer">
+                <el-form-item label="施工店" prop="userDealer">
                     <el-select v-model="newUser.userDealer" placeholder="請選擇施工店">
                         <el-option v-for='item in dealerNameList' :key="item" :label="item" :value="item"></el-option>
                     </el-select>
@@ -42,7 +54,6 @@
                 <el-button icon="el-icon-close" @click="resetForm('newUser')">重置</el-button>
             </span>
         </el-dialog>
-        <br>
         <el-divider/>
         <br>
         <span>用戶列表</span>
@@ -64,19 +75,28 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[1,2,10, 20, 30, 40]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="userList.length">
-            </el-pagination>
-        </div>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="6">
+            </el-col>
+            <el-col :span="8">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="userList.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
+
         <el-dialog
-                title="增加用戶" :visible.sync="modifyUserVisible" width="75%" center>
+                title="增加用戶" :visible.sync="modifyUserVisible" width="24%" center>
             <span>用戶信息</span>
             <el-form ref="modiUser" :rules="rules2" :model="modiUser" label-width="20%" class="check-ruleForm">
                 <el-form-item label="用戶名" prop="userName">

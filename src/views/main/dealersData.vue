@@ -1,10 +1,22 @@
 <template>
     <div class="subpage">
-        <el-input v-model="inputDealerCode" aria-placeholder="請輸入門店編號"></el-input>
-        <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
-        <el-button icon="el-icon-circle-plus-outline" @click="showAddDealer">增加施工店</el-button>
+        <el-row>
+            <el-col :span="2">
+                <span>門店編號</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="inputDealerCode" aria-placeholder="請輸入門店編號"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <el-button icon="el-icon-search" @click="submitQuery">查詢</el-button>
+            </el-col>
+            <el-col :span="2" :offset="15">
+                <el-button icon="el-icon-circle-plus-outline" @click="showAddDealer">增加施工店</el-button>
+            </el-col>
+        </el-row>
+
         <el-dialog
-                title="增加施工店" :visible.sync="newDealerVisible" width="75%" center>
+                title="增加施工店" :visible.sync="newDealerVisible" width="30%" center>
             <span>施工店信息</span>
             <el-form ref="newDealer" :rules="rules" :model="newDealer" label-width="20%" class="check-ruleForm">
                 <el-form-item label="施工店名稱" prop="dealerName">
@@ -60,7 +72,6 @@
                 <el-button icon="el-icon-close" @click="newDealerVisible = false">取消</el-button>
             </span>
         </el-dialog>
-        <br>
         <el-divider/>
         <br>
         <span>增加施工店</span>
@@ -86,20 +97,29 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[1,2,10, 20, 30, 40]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="dealersList.length">
-            </el-pagination>
-        </div>
-        <el-button >导出资料</el-button>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="6">
+                <el-button >导出施工店资料</el-button>
+            </el-col>
+            <el-col :span="8">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="dealersList.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
+
         <el-dialog
-                title="修改施工店信息" :visible.sync="modifyDealerVisible" width="75%" center>
+                title="修改施工店信息" :visible.sync="modifyDealerVisible" width="30%" center>
             <span>施工店信息</span>
             <el-form ref="modiDealer" :rules="rules" :model="modiDealer" label-width="20%" class="check-ruleForm">
                 <el-form-item label="施工店名稱" prop="dealerName">

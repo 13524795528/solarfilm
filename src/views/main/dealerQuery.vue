@@ -1,22 +1,38 @@
 <template>
     <div class="subpage">
-        <el-input v-model="inputDealer" aria-placeholder="請輸入施工門店編號"></el-input>
-        <el-date-picker
-                v-model="valueDate"
-                type="daterange"
-                align="right"
-                unlink-panels
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :picker-options="pickerOptions">
-        </el-date-picker>
-        <el-checkbox-group v-model="radioVehicle">
-            <el-checkbox label="零售"></el-checkbox>
-            <el-checkbox label="PDI"></el-checkbox>
-        </el-checkbox-group>
-        <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
-        <br>
+        <el-row>
+            <el-col :span="2">
+                <span>門店編號</span>
+            </el-col>
+            <el-col :span="3">
+                <el-input v-model="inputDealer" aria-placeholder="請輸入施工門店編號"></el-input>
+            </el-col>
+            <el-col :span="2">
+                <span>日期範圍</span>
+            </el-col>
+            <el-col :span="5">
+                <el-date-picker
+                        v-model="valueDate"
+                        type="daterange"
+                        align="right"
+                        unlink-panels
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions">
+                </el-date-picker>
+            </el-col>
+            <el-col :span="3">
+                <el-checkbox-group v-model="radioVehicle">
+                    <el-checkbox label="零售"></el-checkbox>
+                    <el-checkbox label="PDI"></el-checkbox>
+                </el-checkbox-group>
+            </el-col>
+            <el-col :span="2">
+                <el-button icon="el-icon-search" @click="submitQuery(radioVehicle)">查詢</el-button>
+            </el-col>
+        </el-row>
+
         <el-divider/>
         <br>
         <el-table
@@ -38,17 +54,26 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="block">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[1,2,10, 20, 30, 40]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="clientList.length">
-            </el-pagination>
-        </div>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="9">
+            </el-col>
+            <el-col :span="6">
+                <el-button >导出客戶资料</el-button>
+            </el-col>
+            <el-col :span="9">
+                <div class="block">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[1,2,10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="clientList.length">
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
         <el-dialog
                 title="施工信息" :visible.sync="warrantyVisible" width="70%" center>
             <span>施工門店編號：</span> {{dealerCode}}
@@ -153,7 +178,7 @@
             <br><br>
             <el-button icon="el-icon-switch-button" @click="warrantyVisible = false">關閉頁面</el-button>
         </el-dialog>
-        <el-button >导出资料</el-button>
+
     </div>
 </template>
 
